@@ -1,0 +1,10 @@
+// Storefront Variables
+@import "~@storefront-ui/shared/styles/helpers/colors";
+
+:root {
+  // Generate Color Variants
+  @include generate-color-variants(--d-primary, #ffec06);
+
+  // Define variants
+  @include assign-color-variants(--c-primary, --d-primary);
+}
