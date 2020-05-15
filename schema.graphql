@@ -1,0 +1,6627 @@
+input AbandonedCartItem {
+  # What item the Customer was viewing.
+  productId: Int
+  # How many of this item the Customer wanted to buy.
+  quantity: Int
+  # The SKU for the item the Customer was viewing.
+  skuId: Int
+}
+
+input ActivateCheckoutInput {
+  domainId: String!
+  id: String!
+  clientMutationId: String
+}
+
+type ActivateCheckoutPayload {
+  checkout: CheckoutNode
+  clientMutationId: String
+}
+
+input AddAddressForCustomerInput {
+  address1: String!
+  address2: String
+  city: String!
+  country: String!
+  customerId: Int!
+  state: String
+  zipCode: String!
+  clientMutationId: String
+}
+
+type AddAddressForCustomerPayload {
+  address: AddressNode
+  clientMutationId: String
+}
+
+input AddAttributeInput {
+  attributeKey: String!
+  attributeValues: [String]!
+}
+
+input AddCreditsInput {
+  domainId: String!
+  credits: Int!
+  clientMutationId: String
+}
+
+type AddCreditsPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input AddCustomerAbandonedCheckoutEventsInput {
+  customerId: Int
+  customerPhoneNumber: String
+  domainIds: [Int]!
+  clientMutationId: String
+}
+
+type AddCustomerAbandonedCheckoutEventsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+type AddOn {
+  subscriptionId: String
+  planId: String
+  name: String
+}
+
+type AddOnNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  name: String!
+  stripePlanId: String!
+  domains(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): DomainNodeConnection
+  isVendor: Boolean
+}
+
+type AddOnNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [AddOnNodeEdge]!
+}
+
+# A Relay edge containing a `AddOnNode` and its cursor.
+type AddOnNodeEdge {
+  # The item at the end of the edge
+  node: AddOnNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type AddOnPlan {
+  id: String
+  name: String
+  amount: Int
+}
+
+input AddPaymentCardsInput {
+  domainId: String!
+  sourceTokens: [String]!
+  defaultSourceToken: String
+  clientMutationId: String
+}
+
+type AddPaymentCardsPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input AddPromotionToCheckoutInput {
+  domainId: String!
+  checkoutId: String!
+  promotionId: String!
+  clientMutationId: String
+}
+
+type AddPromotionToCheckoutPayload {
+  checkout: CheckoutNode
+  clientMutationId: String
+}
+
+type AddressNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  customerProfile: CustomerDomainProfileNode
+  profile: ProfileNode
+  isBuyingAddress: Boolean!
+  isDefault: Boolean!
+  address1: String!
+  address2: String
+  city: String!
+  country: String!
+  state: String
+  zipCode: String!
+  isVendor: Boolean
+}
+
+type AddressNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [AddressNodeEdge]!
+}
+
+# A Relay edge containing a `AddressNode` and its cursor.
+type AddressNodeEdge {
+  # The item at the end of the edge
+  node: AddressNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input AddToCartInputObject {
+  styles: GranularInputObject
+}
+
+input AddUserInput {
+  domainId: String!
+  firstName: String
+  lastName: String
+  email: String!
+  isVendor: Boolean
+  clientMutationId: String
+}
+
+type AddUserPayload {
+  user: UserNode
+  clientMutationId: String
+}
+
+input AnchorInputObject {
+  color: String
+  hoverColor: String
+  activeColor: String
+}
+
+type ApiKeyNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  key: String!
+  # Type of key, either 1 for Production | 2 for test
+  type: Int!
+  # Designates whether this key should be treated as deactivated
+  deactivated: DateTime
+  # Domain that this key belongs to
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type ApiKeyNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [ApiKeyNodeEdge]!
+}
+
+# A Relay edge containing a `ApiKeyNode` and its cursor.
+type ApiKeyNodeEdge {
+  # The item at the end of the edge
+  node: ApiKeyNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input ArchiveCheckoutsInput {
+  domainId: String!
+  checkoutIds: [String]!
+  archiveAll: Boolean
+  unArchiveAll: Boolean
+  clientMutationId: String
+}
+
+type ArchiveCheckoutsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input ArchiveCollectionsInput {
+  domainId: String!
+  collectionIds: [String]!
+  archiveAll: Boolean
+  unArchiveAll: Boolean
+  clientMutationId: String
+}
+
+type ArchiveCollectionsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input ArchiveMenusInput {
+  domainId: String!
+  menuIds: [String]!
+  archiveAll: Boolean
+  unArchiveAll: Boolean
+  clientMutationId: String
+}
+
+type ArchiveMenusPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input ArchiveProductExperiencesInput {
+  domainId: String!
+  activeExperienceIds: [String]
+  archivedExperienceIds: [String]
+  clientMutationId: String
+}
+
+type ArchiveProductExperiencesPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input ArchiveProductsInput {
+  domainId: String!
+  productIds: [String]!
+  archiveAll: Boolean
+  clientMutationId: String
+}
+
+type ArchiveProductsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input AttributeInputObject {
+  attributeKey: String!
+  attributeValue: String!
+}
+
+input AttributesInputObject {
+  attributeKey: String!
+  attributeValues: [String]!
+}
+
+input BackgroundInputObject {
+  color: String
+}
+
+input BorderInputObject {
+  width: String
+  style: String
+  color: String
+  radius: String
+}
+
+type BrandingNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  primaryColor: String!
+  secondaryColor: String!
+  tertiaryColor: String!
+  customDomain: String!
+  homeDomain: String!
+  fullDomain: String!
+  # URL of the image
+  logo: String
+  buttonPrimaryColor: String!
+  buttonBorderColor: String!
+  buttonTextColor: String!
+  font: String!
+  titleFont: String!
+  bodyBackgroundColor: String!
+  boxShadow: Int!
+  genderTag: Int!
+  borderRadius: Int!
+  menuTheme: Int!
+  menuBackgroundColor: String!
+  menuTextColor: String!
+  iconColor: String!
+  # Whether a user opted to point their A Record to elliot
+  addressRecord: Boolean!
+  # Default Checkout that this branding belongs to
+  checkout: CheckoutNode
+  # Designates whether this custom url has certificates generated for it
+  isCustomUrlLive: Boolean!
+  isVendor: Boolean
+}
+
+type BrandingNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [BrandingNodeEdge]!
+}
+
+# A Relay edge containing a `BrandingNode` and its cursor.
+type BrandingNodeEdge {
+  # The item at the end of the edge
+  node: BrandingNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input ButtonsInputObject {
+  backgroundColor: String
+  borderColor: String
+  borderRadius: String
+  boxShadow: String
+  fontSize: String
+  fontFamily: String
+  padding: String
+  fontColor: String
+  margin: String
+  lineHeight: String
+  textDecoration: String
+  textTransform: String
+}
+
+input CancelOrderInput {
+  domainId: String!
+  orderIds: [String]!
+  cancelAll: Boolean
+  status: Int
+  clientMutationId: String
+}
+
+type CancelOrderPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input CancelSingleOrderInput {
+  domainId: String!
+  orderId: String!
+  orderSkus: [String]
+  clientMutationId: String
+}
+
+type CancelSingleOrderPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+type CarrierPackageTypeNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  packageType: String!
+  carrier: String
+  label: String!
+  # Unit of dimensions for package
+  unitOfDimensions: Int!
+  # Height of package
+  height: Float!
+  # Width of package
+  width: Float!
+  # Length of package
+  length: Float!
+  # Weight when empty
+  weight: Float!
+  isVendor: Boolean
+}
+
+type CarrierPackageTypeNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CarrierPackageTypeNodeEdge]!
+}
+
+# A Relay edge containing a `CarrierPackageTypeNode` and its cursor.
+type CarrierPackageTypeNodeEdge {
+  # The item at the end of the edge
+  node: CarrierPackageTypeNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input CartInputObject {
+  addToCart: AddToCartInputObject
+  cartModal: AddToCartInputObject
+  menuModal: AddToCartInputObject
+}
+
+input CheckoutInput {
+  id: String!
+}
+
+type CheckoutNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Designates whether this checkout should be treated as deactivated
+  deactivated: DateTime
+  # Type of checkout (Payment page or Storefront)
+  type: Int!
+  snapchatFeedUrl: String
+  shipToLocations: String!
+  facebookFeedUrl: String
+  # Designates whether this product has an express self-checkout
+  isExpress: Boolean!
+  name: String!
+  oldSlug: String
+  slug: String
+  shippingPreference: Int
+  # Location from which the product from this checkout will ship from
+  shipFromLocation: ShippingLocationNode!
+  # Menu that belongs to this checkout
+  menu: MenuNode
+  # Promotion that belongs to this checkout
+  promotion: PromotionNode
+  # Product that this checkout is associated with
+  product: ProductNode
+  # Look and Feel that this checkout is associated with
+  lookAndFeel: LookAndFeelNode
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductNodeConnection
+  # Domain that this checkout belongs to
+  domain: DomainNode!
+  feedPlatform: Int
+  # Designates whether this checkout is archived and no longer used
+  archived: Boolean!
+  # Designates whether this checkout should use the home page
+  useHomePage: Boolean!
+  defaultCheckout(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): BrandingNodeConnection
+  orders(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    stripeId: String
+    stripeId_Icontains: String
+    createdOn: DateTime
+    customerEmail: String
+    customerEmail_Icontains: String
+    customerId: ID
+    customerId_Isnull: Boolean
+    customerName: String
+    customerName_Icontains: String
+    customerPhoneNumber: String
+    customerPhoneNumber_Icontains: String
+    discount: Float
+    discount_Lte: Float
+    discount_Gte: Float
+    domainId: ID
+    duty: Float
+    duty_Lte: Float
+    duty_Gte: Float
+    elliotCommission: Float
+    elliotCommission_Lte: Float
+    elliotCommission_Gte: Float
+    masterCommercialInvoice: String
+    masterCommercialInvoice_Icontains: String
+    masterShippingEta: String
+    masterShippingEta_Icontains: String
+    masterShippingLabelUrl: String
+    masterShippingLabelUrl_Icontains: String
+    masterShippingTrackingNumber: String
+    masterShippingTrackingNumber_Icontains: String
+    masterShippingTrackingUrl: String
+    masterShippingTrackingUrl_Icontains: String
+    modifiedOn: DateTime
+    orderStatus: Float
+    orderTotal: Float
+    orderTotal_Lte: Float
+    orderTotal_Gte: Float
+    paymentMethod: Float
+    paymentMethod_Icontains: Float
+    payoutDate: DateTime
+    payoutId: String
+    payoutId_Icontains: String
+    payoutId_Isnull: Boolean
+    payoutInvoiceUrl: String
+    payoutInvoiceUrl_Icontains: String
+    payoutType: Float
+    refundStatus: Boolean
+    shippingAddress1: String
+    shippingAddress1_Icontains: String
+    shippingAddress2: String
+    shippingAddress2_Icontains: String
+    shippingCity: String
+    shippingCity_Icontains: String
+    shippingCost: Float
+    shippingCost_Lte: Float
+    shippingCost_Gte: Float
+    shippingCountry: String
+    shippingCountry_Icontains: String
+    shippingMethod: String
+    shippingMethod_Icontains: String
+    shippingState: String
+    shippingState_Icontains: String
+    shippingZipCode: String
+    shippingZipCode_Icontains: String
+    billingAddress1: String
+    billingAddress1_Icontains: String
+    billingAddress2: String
+    billingAddress2_Icontains: String
+    billingCity: String
+    billingCity_Icontains: String
+    billingState: String
+    billingState_Icontains: String
+    billingZipCode: String
+    billingZipCode_Icontains: String
+    billingCountry: String
+    billingCountry_Icontains: String
+    stripeChargeFee: Float
+    stripeChargeFee_Lte: Float
+    stripeChargeFee_Gte: Float
+    tax: Float
+    tax_Lte: Float
+    tax_Gte: Float
+    vendorTotal: Float
+    vendorTotal_Lte: Float
+    vendorTotal_Gte: Float
+    # Ordering
+    orderBy: String
+  ): OrderNodeConnection
+  orderCheckouts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderCheckoutNodeConnection
+  customCheckoutPackageTypes(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomCheckoutPackageTypeNodeConnection
+  checkoutShippingRules(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ShippingCheckoutRuleNodeConnection
+  isVendor: Boolean
+  revenue: Int
+  averageOrderAmount: Int
+  trackingMetrics(period: Int): TrackingMetricsObjectType
+  trafficBreakdowns(period: Int): [TrafficDimensionObjectType]
+  mobileTrafficBreakdowns(period: Int): [TrafficDimensionObjectType]
+  revenuePlot(period: Int): [RevenuePlotObjectType]
+  performanceMetrics(period: Int): CheckoutPerformanceMetrics
+  orderCheckoutCount: Int
+}
+
+type CheckoutNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CheckoutNodeEdge]!
+}
+
+# A Relay edge containing a `CheckoutNode` and its cursor.
+type CheckoutNodeEdge {
+  # The item at the end of the edge
+  node: CheckoutNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type CheckoutPerformanceMetrics {
+  previousMetrics: CheckoutPerformanceMetricsObject
+  currentMetrics: CheckoutPerformanceMetricsObject
+}
+
+type CheckoutPerformanceMetricsObject {
+  averageOrderRevenue: Int
+  totalOrderRevenue: Int
+  conversionRate: String
+  graphMetrics: [RevenuePlotObjectType]
+}
+
+type CheckoutTrackingPixelNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Platform that tracking pixel belongs to
+  platform: Int!
+  pixel: String!
+  # Domain that this tracking pixel belongs to
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type CheckoutTrackingPixelNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CheckoutTrackingPixelNodeEdge]!
+}
+
+# A Relay edge containing a `CheckoutTrackingPixelNode` and its cursor.
+type CheckoutTrackingPixelNodeEdge {
+  # The item at the end of the edge
+  node: CheckoutTrackingPixelNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input CloneProductsInput {
+  domainId: String!
+  productIds: [String]!
+  cloneAll: Boolean
+  filterParam: String
+  clientMutationId: String
+}
+
+type CloneProductsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+type CollectionNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  name: String!
+  # Designates whether the collection is autogenerated
+  isAutogenerated: Boolean!
+  slug: String
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    slug: String
+    stripeId: String
+    stripeId_Icontains: String
+    name: String
+    name_Icontains: String
+    description: String
+    description_Icontains: String
+    shortDescription: String
+    shortDescription_Icontains: String
+    gender: Float
+    unitOfWeight: Float
+    weight: Float
+    weight_Lte: Float
+    weight_Gte: Float
+    htsCode: String
+    htsCode_Icontains: String
+    unitOfDimensions: Float
+    unitOfDimensions_Icontains: Float
+    height: Float
+    height_Icontains: Float
+    width: Float
+    width_Icontains: Float
+    length: Float
+    length_Icontains: Float
+    downloadUrl: String
+    type: Float
+    archived: Boolean
+    customMetadata_Value: String
+    customMetadata_Value_Icontains: String
+    metadata_ProductCategoryTag1: String
+    metadata_ProductCategoryTag1_Icontains: String
+    metadata_ProductCategoryTag2: String
+    metadata_ProductCategoryTag2_Icontains: String
+    metadata_ProductCategoryTag3: String
+    metadata_ProductCategoryTag3_Icontains: String
+    metadata: String
+    filterParam: String
+    productChannel: String
+    collectionSlug: String
+    collectionId: String
+    checkouts: String
+    # Ordering
+    orderBy: String
+  ): ProductNodeConnection
+  # Domain that this collection belongs to
+  domain: DomainNode!
+  # Designates whether this collection is archived and no longer used
+  archived: Boolean!
+  collectionTags(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CollectionTagNodeConnection
+  lookAndFeelCollections(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): LookAndFeelNodeConnection
+  isVendor: Boolean
+  productCount: Int
+}
+
+type CollectionNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CollectionNodeEdge]!
+}
+
+# A Relay edge containing a `CollectionNode` and its cursor.
+type CollectionNodeEdge {
+  # The item at the end of the edge
+  node: CollectionNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type CollectionTagNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  name: String!
+  # Collection that this collection tag belongs to
+  collection: CollectionNode!
+  # Domain that this collection tag belongs to
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type CollectionTagNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CollectionTagNodeEdge]!
+}
+
+# A Relay edge containing a `CollectionTagNode` and its cursor.
+type CollectionTagNodeEdge {
+  # The item at the end of the edge
+  node: CollectionTagNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input ColorsInputObject {
+  pageBackground: String
+  pageText: String
+  menuBackground: String
+  menuText: String
+  accent: String
+  tagBackground: String
+  icons: String
+  iconsBackground: String
+  anchor: String
+}
+
+type CompanyNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  timeZone: String
+  name: String!
+  email: String!
+  # Address of Company
+  address: ShippingLocationNode!
+  customerSupportNumber: String!
+  currency: String!
+  about: String
+  returnPolicy: String
+  sizeGuide: String
+  # Whether the WYSIWYG title should be hidden
+  hideKeyInfoTitle: String!
+  homePage: String
+  privacyPolicy: String
+  termsAndConditions: String
+  faqs: String
+  vendorSignup: String!
+  isVendor: Boolean
+}
+
+type CompanyNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CompanyNodeEdge]!
+}
+
+# A Relay edge containing a `CompanyNode` and its cursor.
+type CompanyNodeEdge {
+  # The item at the end of the edge
+  node: CompanyNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input ConnectPrintifyStoreInput {
+  domainId: String!
+  printifyToken: String!
+  isVendor: Boolean
+  clientMutationId: String
+}
+
+type ConnectPrintifyStorePayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input ConnectStripeAccountInput {
+  domainId: String!
+  authorizationCode: String!
+  isVendor: Boolean
+  clientMutationId: String
+}
+
+type ConnectStripeAccountPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+type ConversionRateObjectType {
+  pathname: String
+  views: String
+  conversionRate: String
+}
+
+type CorsWhitelistNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  host: String!
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type CorsWhitelistNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CorsWhitelistNodeEdge]!
+}
+
+# A Relay edge containing a `CorsWhitelistNode` and its cursor.
+type CorsWhitelistNodeEdge {
+  # The item at the end of the edge
+  node: CorsWhitelistNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input CreateAbandonedOrderInput {
+  abandonedItems: [AbandonedCartItem]
+  checkout: Int!
+  customerAddress1: String
+  customerAddress2: String
+  customerCity: String
+  customerCountry: String
+  customerEmail: String
+  customerName: String
+  customerPhoneNumber: String
+  customerState: String
+  customerZipCode: String
+  domain: ID!
+  clientMutationId: String
+}
+
+type CreateAbandonedOrderPayload {
+  order: OrderNode
+  clientMutationId: String
+}
+
+input CreateAddOnsInput {
+  domainId: String!
+  addOnPlanIds: [String]!
+  clientMutationId: String
+}
+
+type CreateAddOnsPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input CreateCheckoutInput {
+  id: String
+  domainId: String!
+  productId: [String]
+  type: Int!
+  isExpress: Boolean
+  name: String!
+  shipToLocations: String
+  shippingPreference: Int!
+  shipFromLocationId: String!
+  promotionId: String
+  deactivated: Boolean
+  useHomePage: Boolean
+  menuId: String
+  feedPlatform: Int
+  lookAndFeelId: String
+  slug: String
+  clientMutationId: String
+}
+
+type CreateCheckoutPayload {
+  checkouts: [CheckoutNode]
+  addedCheckoutIds: [String]
+  clientMutationId: String
+}
+
+input CreateCollectionInput {
+  id: String
+  domainId: String!
+  name: String!
+  productIds: [String]
+  slug: String
+  tags: [String]
+  clientMutationId: String
+}
+
+type CreateCollectionPayload {
+  collections: [CollectionNode]
+  clientMutationId: String
+}
+
+input CreateCompanyAddressInputObject {
+  address1: String!
+  address2: String
+  city: String!
+  state: String
+  zipCode: String!
+  country: String!
+}
+
+input CreateCompanyInputObject {
+  address: CreateCompanyAddressInputObject!
+  currency: String!
+  customerSupportNumber: String!
+  timeZone: String!
+}
+
+input CreateDomainInput {
+  label: String!
+  freeShippingThreshold: Int
+  freeShippingThresholdTarget: Int
+  company: CreateCompanyInputObject!
+  payoutType: Int
+  paypalPayoutEmail: String
+  clientMutationId: String
+}
+
+type CreateDomainPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input CreateOrderInput {
+  domainId: String!
+  stripeId: String!
+  checkouts: [CheckoutInput]!
+  tax: Int
+  duty: Int
+  shippingCost: Int
+  discount: Int
+  orderTotal: Int!
+  subTotal: Int!
+  vendorTotal: Int!
+  stripeChargeFee: Int!
+  currency: String
+  payoutType: Int!
+  paymentMethod: Int!
+  customerName: String!
+  customerEmail: String!
+  customerPhoneNumber: String!
+  billingAddress1: String
+  billingAddress2: String
+  billingCity: String
+  billingState: String
+  billingZipCode: String
+  billingCountry: String
+  shippingAddress1: String
+  shippingAddress2: String
+  shippingCity: String
+  shippingState: String
+  shippingZipCode: String
+  shippingCountry: String
+  payoutDate: DateTimeScalar
+  payoutId: String
+  payoutInvoiceUrl: String
+  elliotCommission: Int
+  test: Boolean
+  insuranceAmount: Int
+  vendorOrders: [VendorOrderInput]!
+  localPickupId: Int
+  localDeliveryId: Int
+  localPickupWindow: Int
+  localDeliveryWindow: Int
+  viabillTransactionId: String
+  viabillChargeFee: Int
+  clientMutationId: String
+}
+
+type CreateOrderPayload {
+  order: OrderNode
+  clientMutationId: String
+}
+
+input CreateOrUpdateApiKeyInput {
+  domainId: String!
+  type: Int!
+  id: String
+  deactivated: Boolean
+  clientMutationId: String
+}
+
+type CreateOrUpdateApiKeyPayload {
+  apiKey: ApiKeyNode
+  clientMutationId: String
+}
+
+input CreateOrUpdateCheckoutTrackingPixelInput {
+  id: String
+  domainId: String!
+  platform: Int
+  pixel: String!
+  clientMutationId: String
+}
+
+type CreateOrUpdateCheckoutTrackingPixelPayload {
+  checkoutTrackingPixel: CheckoutTrackingPixelNode
+  clientMutationId: String
+}
+
+input CreateOrUpdateCorsWhitelistInput {
+  # Domain id
+  domainId: String!
+  # Host, ex. http://localhost:3001
+  host: String!
+  id: String
+  clientMutationId: String
+}
+
+type CreateOrUpdateCorsWhitelistPayload {
+  whitelist: CorsWhitelistNode
+  clientMutationId: String
+}
+
+input CreateOrUpdateCustomProductMetadataInput {
+  domainId: String!
+  productId: String!
+  metadata: [MetadataLabelInputObject]
+  clientMutationId: String
+}
+
+type CreateOrUpdateCustomProductMetadataPayload {
+  customProductMetadata: [CustomProductMetadataNode]
+  clientMutationId: String
+}
+
+input CreateOrUpdateFlatRateShippingOptionInput {
+  domainId: String!
+  domestic: Int
+  international: Int
+  clientMutationId: String
+}
+
+type CreateOrUpdateFlatRateShippingOptionPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input CreateOrUpdateLookAndFeelInput {
+  id: String
+  domainId: String!
+  name: String
+  menuId: String
+  styles: [StylesInputObject]
+  newsletter: NewsletterInputObject
+  theme: Int
+  collectionIds: [String]
+  hero: HeroInputObject
+  productBucket: [ProductBucketInputObject]
+  productGrid: [ProductGridInputObject]
+  seo: SeoInputObject
+  hideSection: HideSectionInputObject
+  customCss: CustomCssInputObject
+  cart: CartInputObject
+  options: OptionsInputObject
+  header: HeaderInputObject
+  footer: FooterInputObject
+  homepage: HomepageInputObject
+  clientMutationId: String
+}
+
+type CreateOrUpdateLookAndFeelPayload {
+  lookAndFeel: LookAndFeelNode
+  clientMutationId: String
+}
+
+input CreateOrUpdateMenuInput {
+  id: String
+  domainId: String!
+  name: String!
+  items: [MenuItemInputObject]
+  experienceIds: [String]
+  clientMutationId: String
+}
+
+type CreateOrUpdateMenuPayload {
+  menu: MenuNode
+  clientMutationId: String
+}
+
+input CreateOrUpdateMetaLabelInput {
+  domainId: String!
+  metadata: [MetadataLabelInputObject]!
+  clientMutationId: String
+}
+
+type CreateOrUpdateMetaLabelPayload {
+  metadataList: [MetadataLabelNode]
+  clientMutationId: String
+}
+
+input CreateOrUpdatePackageTypeInput {
+  id: String
+  domainId: String!
+  label: String!
+  unitOfDimensions: Int!
+  height: Float!
+  width: Float!
+  isDefault: Boolean
+  length: Float!
+  weight: Float
+  packageType: String
+  carrier: String
+  isCarrier: Boolean
+  carrierId: String
+  clientMutationId: String
+}
+
+type CreateOrUpdatePackageTypePayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input CreateOrUpdateProductMetadataInput {
+  id: String
+  domainId: String!
+  productId: String!
+  productDominantColor1: String
+  productDominantColor2: String
+  productDominantColor3: String
+  productDominantColor4: String
+  productDominantColor5: String
+  productCategoryTag1: String
+  productCategoryTag2: String
+  productCategoryTag3: String
+  productHtsCode: String
+  clientMutationId: String
+}
+
+type CreateOrUpdateProductMetadataPayload {
+  productMetadata: ProductMetadataNode
+  clientMutationId: String
+}
+
+input CreateOrUpdateProductSeoInput {
+  domainId: String!
+  productId: String!
+  title: String
+  description: String
+  id: String
+  clientMutationId: String
+}
+
+type CreateOrUpdateProductSeoPayload {
+  productSeo: ProductSeoNode
+  clientMutationId: String
+}
+
+input CreateOrUpdateProfileInput {
+  domainId: String!
+  userId: String!
+  bio: String
+  label: String
+  name: String
+  address1: String
+  address2: String
+  city: String
+  state: String
+  zipCode: String
+  country: String
+  email: String
+  phoneNumber: String
+  avatar: Upload
+  domainCommission: Int
+  shippingLabelSize: String
+  clientMutationId: String
+}
+
+type CreateOrUpdateProfilePayload {
+  profile: ProfileNode
+  clientMutationId: String
+}
+
+input CreateOrUpdateSkusInput {
+  domainId: String!
+  productId: String
+  stripeProductId: String
+  skus: [CreateOrUpdateSkusInputObject]!
+  clientMutationId: String
+}
+
+input CreateOrUpdateSkusInputObject {
+  id: String
+  stripeId: String
+  sku: String!
+  attributes: GenericScalar
+  basePrice: Int!
+  salePrice: Int
+  quantity: Int!
+  purchaseLimit: Int
+  unitOfWeight: Int
+  weight: Decimal
+  unitOfDimensions: Int
+  height: Decimal
+  width: Decimal
+  length: Decimal
+  url: String
+}
+
+type CreateOrUpdateSkusPayload {
+  skus: [SkuNode]
+  clientMutationId: String
+}
+
+input CreateProductInput {
+  domainId: String!
+  name: String!
+  description: String
+  shortDescription: String
+  gender: Int
+  attributes: [AttributesInputObject]
+  htsCode: String
+  unitOfWeight: Int
+  weight: Decimal
+  unitOfDimensions: Int
+  height: Decimal
+  width: Decimal
+  length: Decimal
+  type: Int
+  downloadUrl: String
+  vendorId: String
+  filterParam: String
+  insuranceAmount: Int
+  experienceIds: [String]
+  clientMutationId: String
+}
+
+type CreateProductPayload {
+  product: ProductNode
+  clientMutationId: String
+}
+
+input CreatePromotionInput {
+  domainId: String!
+  promotions: [CreatePromotionInputObject]!
+  clientMutationId: String
+}
+
+input CreatePromotionInputObject {
+  label: String!
+  startDatetime: DateTimeScalar!
+  endDatetime: DateTimeScalar
+  discountValue: Int!
+  discountType: Int!
+}
+
+type CreatePromotionPayload {
+  promotions: [PromotionNode]
+  clientMutationId: String
+}
+
+input CreateRefundLabelInput {
+  domainId: String!
+  orderIds: [String]!
+  createAll: Boolean
+  status: Int
+  clientMutationId: String
+}
+
+type CreateRefundLabelPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input CreateRefundSingleOrderInput {
+  domainId: String!
+  orderId: String!
+  orderSkus: [String]
+  clientMutationId: String
+}
+
+type CreateRefundSingleOrderPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input CreateShippingLocationInput {
+  domainId: String!
+  shippingLocations: [CreateShippingLocationInputObject]!
+  clientMutationId: String
+}
+
+input CreateShippingLocationInputObject {
+  name: String!
+  address1: String!
+  address2: String
+  city: String!
+  state: String
+  zipCode: String!
+  country: String!
+  email: String!
+  phoneNumber: String!
+}
+
+type CreateShippingLocationPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input CreateSkuInput {
+  domainId: String!
+  productId: String
+  stripeProductId: String
+  skus: [CreateSkuInputObject]!
+  clientMutationId: String
+}
+
+input CreateSkuInputObject {
+  sku: String
+  attributes: GenericScalar
+  basePrice: Int!
+  salePrice: Int
+  quantity: Int!
+  unitOfWeight: Int
+  weight: Decimal
+  unitOfDimensions: Int
+  height: Decimal
+  width: Decimal
+  length: Decimal
+}
+
+type CreateSkuPayload {
+  skus: [SkuNode]
+  clientMutationId: String
+}
+
+type CustomCheckoutPackageTypeNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  label: String!
+  # Unit of dimensions for package
+  unitOfDimensions: Int!
+  # Height of package
+  height: Float!
+  # Width of package
+  width: Float!
+  # Length of package
+  length: Float!
+  # Checkout that this custom package type belongs to
+  checkout: CheckoutNode!
+  # Domain that this custom package type belongs to
+  domain: DomainNode!
+  shippingCheckoutRules(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ShippingCheckoutRuleNodeConnection
+  isVendor: Boolean
+}
+
+type CustomCheckoutPackageTypeNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CustomCheckoutPackageTypeNodeEdge]!
+}
+
+# A Relay edge containing a `CustomCheckoutPackageTypeNode` and its cursor.
+type CustomCheckoutPackageTypeNodeEdge {
+  # The item at the end of the edge
+  node: CustomCheckoutPackageTypeNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input CustomCssInputObject {
+  title: String
+  subTitle: String
+  content: String
+}
+
+type CustomerAbandonedCheckoutEventNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  customer: CustomerNode
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type CustomerAbandonedCheckoutEventNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CustomerAbandonedCheckoutEventNodeEdge]!
+}
+
+# A Relay edge containing a `CustomerAbandonedCheckoutEventNode` and its cursor.
+type CustomerAbandonedCheckoutEventNodeEdge {
+  # The item at the end of the edge
+  node: CustomerAbandonedCheckoutEventNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type CustomerDomainProfileNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime
+  modifiedOn: DateTime
+  firstName: String
+  lastName: String
+  email: String
+  phoneNumber: String
+  customer: CustomerNode!
+  domain: DomainNode!
+  addresses(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    isBuyingAddress: Boolean
+  ): AddressNodeConnection
+  isVendor: Boolean
+}
+
+type CustomerDomainProfileNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CustomerDomainProfileNodeEdge]!
+}
+
+# A Relay edge containing a `CustomerDomainProfileNode` and its cursor.
+type CustomerDomainProfileNodeEdge {
+  # The item at the end of the edge
+  node: CustomerDomainProfileNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type CustomerDomainVendorViewNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  customerSince: DateTime!
+  lifetimeValue: Float!
+  name: String!
+  numberOfOrders: Int!
+  numberOfProducts: Int!
+  customer: CustomerNode
+  domain: DomainNode!
+  vendor: ProfileNode
+  isVendor: Boolean
+  profile(domain: ID!): CustomerDomainProfileNode
+}
+
+type CustomerDomainVendorViewNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CustomerDomainVendorViewNodeEdge]!
+}
+
+# A Relay edge containing a `CustomerDomainVendorViewNode` and its cursor.
+type CustomerDomainVendorViewNodeEdge {
+  # The item at the end of the edge
+  node: CustomerDomainVendorViewNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type CustomerNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime
+  modifiedOn: DateTime
+  firstName: String
+  lastName: String
+  email: String
+  phoneNumber: String
+  orderSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderNodeConnection
+  customerSeenEvents(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomerSeenEventNodeConnection
+  customerAbandonedCheckoutEvents(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomerAbandonedCheckoutEventNodeConnection
+  customerDomainProfiles(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomerDomainProfileNodeConnection
+  customerDomainVendorViews(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomerDomainVendorViewNodeConnection
+  isVendor: Boolean
+  customerSince(domain: ID!): DateTime
+  lifetimeValue(domain: ID!): Float
+  numberOfOrders(domain: ID!): Int
+  numbersOfOrdersToDate(domain: ID!): [[Int]]
+  numberOfProducts(domain: ID!): Int
+  numbersOfProductsToDate(domain: ID!): [[Int]]
+  ordersCounts(domain: ID!): [Int]
+  ordersMetrics(domain: ID!): [[RevenuePlotObjectType]]
+  profile(domain: ID!): CustomerDomainProfileNode
+}
+
+type CustomerSeenEventNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  customer: CustomerNode
+  domain: DomainNode!
+  user: UserNode!
+  isVendor: Boolean
+}
+
+type CustomerSeenEventNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CustomerSeenEventNodeEdge]!
+}
+
+# A Relay edge containing a `CustomerSeenEventNode` and its cursor.
+type CustomerSeenEventNodeEdge {
+  # The item at the end of the edge
+  node: CustomerSeenEventNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type CustomerSupportNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  body: String!
+  # Whether this customer support is active
+  active: Boolean!
+  # Domain that this customer support belongs to
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type CustomerSupportNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CustomerSupportNodeEdge]!
+}
+
+# A Relay edge containing a `CustomerSupportNode` and its cursor.
+type CustomerSupportNodeEdge {
+  # The item at the end of the edge
+  node: CustomerSupportNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type CustomPackageTypeNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  packageType: String!
+  # Is Shipping package a carrier default type?
+  isCarrier: Boolean!
+  label: String!
+  carrier: String
+  # Unit of dimensions for package
+  unitOfDimensions: Int!
+  # Height of package
+  height: Float!
+  # Width of package
+  width: Float!
+  # Is Shipping package type default?
+  isDefault: Boolean!
+  # Length of package
+  length: Float!
+  carrierId: String
+  # The very first package
+  isPrimary: Boolean!
+  # Weight when empty
+  weight: Float!
+  # Domain that this custom package type belongs to
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type CustomPackageTypeNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CustomPackageTypeNodeEdge]!
+}
+
+# A Relay edge containing a `CustomPackageTypeNode` and its cursor.
+type CustomPackageTypeNodeEdge {
+  # The item at the end of the edge
+  node: CustomPackageTypeNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# An enumeration.
+enum CustomProductMetadataInputType {
+  # TEXT_INPUT
+  TEXT_INPUT
+  # TEXT_EDITOR
+  TEXT_EDITOR
+  # DATE_TIME
+  DATE_TIME
+  # MEDIA
+  MEDIA
+}
+
+type CustomProductMetadataNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  name: String
+  value: String
+  # metadata input type choices
+  inputType: CustomProductMetadataInputType!
+  # Designates  a metadata attribute & value are to be tagged in Collection
+  tagMetadata: Boolean!
+  # Label that this Metadata label belongs to
+  label: MetadataLabelNode!
+  # Product that this Custom Metadata belongs to
+  product: ProductNode!
+  # Domain that this Metadata label belongs to
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type CustomProductMetadataNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [CustomProductMetadataNodeEdge]!
+}
+
+# A Relay edge containing a `CustomProductMetadataNode` and its cursor.
+type CustomProductMetadataNodeEdge {
+  # The item at the end of the edge
+  node: CustomProductMetadataNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# The `DateTime` scalar type
+# represents a DateTime
+# value as specified by
+# [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+scalar DateTime
+
+scalar DateTimeScalar
+
+input DeactivateCheckoutInput {
+  domainId: String!
+  id: String!
+  clientMutationId: String
+}
+
+type DeactivateCheckoutPayload {
+  checkout: CheckoutNode
+  clientMutationId: String
+}
+
+# This Decimal Scalar Type represents a Python Decimal.
+scalar Decimal
+
+input DeleteAddOnsInput {
+  domainId: String!
+  subscriptionIds: [String]!
+  clientMutationId: String
+}
+
+type DeleteAddOnsPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input DeleteApiKeyInput {
+  domainId: String!
+  id: String!
+  clientMutationId: String
+}
+
+type DeleteApiKeyPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeleteAttributeInput {
+  domainId: String!
+  productId: String
+  stripeProductId: String
+  attributeKey: String!
+  clientMutationId: String
+}
+
+type DeleteAttributePayload {
+  product: ProductNode
+  clientMutationId: String
+}
+
+input DeleteAttributeValueInput {
+  domainId: String!
+  productId: String
+  stripeProductId: String
+  attribute: AttributeInputObject!
+  clientMutationId: String
+}
+
+type DeleteAttributeValuePayload {
+  product: ProductNode
+  clientMutationId: String
+}
+
+input DeleteCollectionsInput {
+  domainId: String!
+  ids: [String]!
+  clientMutationId: String
+}
+
+type DeleteCollectionsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeleteFlatRateShippingOptionInput {
+  domainId: String!
+  flatRateIds: [String]!
+  clientMutationId: String
+}
+
+type DeleteFlatRateShippingOptionPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeleteLookAndFeelsInput {
+  domainId: String!
+  lookAndFeelIds: [String]!
+  clientMutationId: String
+}
+
+type DeleteLookAndFeelsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeleteMenusInput {
+  domainId: String!
+  ids: [String]!
+  clientMutationId: String
+}
+
+type DeleteMenusPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeleteMetadataLabelsInput {
+  domainId: String!
+  ids: [String]!
+  clientMutationId: String
+}
+
+type DeleteMetadataLabelsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeletePackageTypeInput {
+  id: String!
+  domainId: String!
+  clientMutationId: String
+}
+
+type DeletePackageTypePayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeletePaymentCardsInput {
+  domainId: String!
+  cardIds: [String]!
+  clientMutationId: String
+}
+
+type DeletePaymentCardsPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input DeleteProductImageInput {
+  domainId: String!
+  productId: String!
+  imageIds: [String]!
+  clientMutationId: String
+}
+
+type DeleteProductImagePayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeletePromotionInput {
+  domainId: String!
+  promotionId: String!
+  clientMutationId: String
+}
+
+type DeletePromotionPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeleteShippingLocationInput {
+  domainId: String!
+  shippingLocationId: String!
+  clientMutationId: String
+}
+
+type DeleteShippingLocationPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DeleteSkuInput {
+  domainId: String!
+  skus: [RemoveSkuInputObject]!
+  clientMutationId: String
+}
+
+type DeleteSkuPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+type DomainNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Label for domain, used for bookkeeping purposes
+  label: String!
+  slug: String
+  freeShippingThreshold: Int
+  freeShippingThresholdTarget: Int
+  stripeCustomerId: String
+  stripeLinksSiId: String
+  # User Id for connected Stripe account
+  stripeConnectUserId: String
+  stripeCustomerEmail: String
+  users(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    id_In: ID
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    domains_Id: ID
+    domains_OwnerId: ID
+    domains_Vendors_Id: ID
+    email: String
+    email_Icontains: String
+    firstName: String
+    firstName_Icontains: String
+    lastName: String
+    lastName_Icontains: String
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    # Ordering
+    orderBy: String
+  ): UserNodeConnection
+  vendors(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    id_In: ID
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    domains_Id: ID
+    domains_OwnerId: ID
+    domains_Vendors_Id: ID
+    email: String
+    email_Icontains: String
+    firstName: String
+    firstName_Icontains: String
+    lastName: String
+    lastName_Icontains: String
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    # Ordering
+    orderBy: String
+  ): UserNodeConnection
+  addOns: [AddOn]
+  payoutType: Int
+  paypalPayoutEmail: String
+  owner: UserNode!
+  # Designates whether this domain has a delinquent account or not
+  delinquent: DateTime
+  searchApiKey: String
+  # email Id for connected Stripe account
+  stripeConnectedEmail: String
+  printifyToken: String!
+  # Allows users to set Elliot as the “source of truth” for product data.
+  managePrintifyStores: Boolean!
+  branding: BrandingNode
+  company: CompanyNode
+  shippingLocations(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    createdOn: DateTime
+    modifiedOn: DateTime
+    name: String
+    name_Icontains: String
+    address1: String
+    address1_Icontains: String
+    address2: String
+    address2_Icontains: String
+    city: String
+    city_Icontains: String
+    state: String
+    zipCode: String
+    country: String
+    # Ordering
+    orderBy: String
+  ): ShippingLocationNodeConnection
+  customerSupports(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomerSupportNodeConnection
+  localDeliveryDomain(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): LocalDeliveryNodeConnection
+  localPickupDomain(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): LocalPickupNodeConnection
+  flatRateShippingOptions(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    createdOn: DateTime
+    modifiedOn: DateTime
+    label: String
+    label_Icontains: String
+    domestic: Float
+    domestic_Icontains: Float
+    international: Float
+    international_Icontains: Float
+    # Ordering
+    orderBy: String
+  ): FlatRateShippingOptionNodeConnection
+  promotions(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    createdOn: DateTime
+    modifiedOn: DateTime
+    startDatetime: DateTime
+    endDatetime: DateTime
+    discountValue: Float
+    discountValue_Lte: Float
+    discountValue_Gte: Float
+    discountType: Float
+    # Ordering
+    orderBy: String
+  ): PromotionNodeConnection
+  generalinformation: GeneralInformationNode
+  socialprofile: SocialProfileNode
+  printifyShop(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): PrintifyStoreNodeConnection
+  shippingPackageTypes(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomPackageTypeNodeConnection
+  viabill: ViaBillNode
+  orders(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    stripeId: String
+    stripeId_Icontains: String
+    createdOn: DateTime
+    customerEmail: String
+    customerEmail_Icontains: String
+    customerId: ID
+    customerId_Isnull: Boolean
+    customerName: String
+    customerName_Icontains: String
+    customerPhoneNumber: String
+    customerPhoneNumber_Icontains: String
+    discount: Float
+    discount_Lte: Float
+    discount_Gte: Float
+    domainId: ID
+    duty: Float
+    duty_Lte: Float
+    duty_Gte: Float
+    elliotCommission: Float
+    elliotCommission_Lte: Float
+    elliotCommission_Gte: Float
+    masterCommercialInvoice: String
+    masterCommercialInvoice_Icontains: String
+    masterShippingEta: String
+    masterShippingEta_Icontains: String
+    masterShippingLabelUrl: String
+    masterShippingLabelUrl_Icontains: String
+    masterShippingTrackingNumber: String
+    masterShippingTrackingNumber_Icontains: String
+    masterShippingTrackingUrl: String
+    masterShippingTrackingUrl_Icontains: String
+    modifiedOn: DateTime
+    orderStatus: Float
+    orderTotal: Float
+    orderTotal_Lte: Float
+    orderTotal_Gte: Float
+    paymentMethod: Float
+    paymentMethod_Icontains: Float
+    payoutDate: DateTime
+    payoutId: String
+    payoutId_Icontains: String
+    payoutId_Isnull: Boolean
+    payoutInvoiceUrl: String
+    payoutInvoiceUrl_Icontains: String
+    payoutType: Float
+    refundStatus: Boolean
+    shippingAddress1: String
+    shippingAddress1_Icontains: String
+    shippingAddress2: String
+    shippingAddress2_Icontains: String
+    shippingCity: String
+    shippingCity_Icontains: String
+    shippingCost: Float
+    shippingCost_Lte: Float
+    shippingCost_Gte: Float
+    shippingCountry: String
+    shippingCountry_Icontains: String
+    shippingMethod: String
+    shippingMethod_Icontains: String
+    shippingState: String
+    shippingState_Icontains: String
+    shippingZipCode: String
+    shippingZipCode_Icontains: String
+    billingAddress1: String
+    billingAddress1_Icontains: String
+    billingAddress2: String
+    billingAddress2_Icontains: String
+    billingCity: String
+    billingCity_Icontains: String
+    billingState: String
+    billingState_Icontains: String
+    billingZipCode: String
+    billingZipCode_Icontains: String
+    billingCountry: String
+    billingCountry_Icontains: String
+    stripeChargeFee: Float
+    stripeChargeFee_Lte: Float
+    stripeChargeFee_Gte: Float
+    tax: Float
+    tax_Lte: Float
+    tax_Gte: Float
+    vendorTotal: Float
+    vendorTotal_Lte: Float
+    vendorTotal_Gte: Float
+    # Ordering
+    orderBy: String
+  ): OrderNodeConnection
+  vendorOrders(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    modifiedOn: DateTime
+    id: ID
+    orderId: ID
+    domainId: ID
+    tax: Float
+    tax_Lte: Float
+    tax_Gte: Float
+    duty: Float
+    duty_Lte: Float
+    duty_Gte: Float
+    shippingCost: Float
+    shippingCost_Lte: Float
+    shippingCost_Gte: Float
+    vendorTotal: Float
+    vendorTotal_Lte: Float
+    vendorTotal_Gte: Float
+    stripeChargeFee: Float
+    stripeChargeFee_Lte: Float
+    stripeChargeFee_Gte: Float
+    payoutType: Float
+    masterShippingLabelUrl: String
+    masterShippingLabelUrl_Icontains: String
+    masterShippingTrackingNumber: String
+    masterShippingTrackingNumber_Icontains: String
+    masterShippingTrackingUrl: String
+    masterShippingTrackingUrl_Icontains: String
+    masterCommercialInvoice: String
+    masterCommercialInvoice_Icontains: String
+    masterShippingEta: String
+    masterShippingEta_Icontains: String
+    payoutDate: DateTime
+    payoutId: String
+    payoutId_Icontains: String
+    payoutId_Isnull: Boolean
+    payoutInvoiceUrl: String
+    payoutInvoiceUrl_Icontains: String
+    commission: Float
+    commission_Lte: Float
+    commission_Gte: Float
+    # Ordering
+    orderBy: String
+  ): VendorOrderNodeConnection
+  orderSkus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderSkuNodeConnection
+  shipments(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ShipmentNodeConnection
+  profileDomain(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProfileNodeConnection
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    slug: String
+    stripeId: String
+    stripeId_Icontains: String
+    name: String
+    name_Icontains: String
+    description: String
+    description_Icontains: String
+    shortDescription: String
+    shortDescription_Icontains: String
+    gender: Float
+    unitOfWeight: Float
+    weight: Float
+    weight_Lte: Float
+    weight_Gte: Float
+    htsCode: String
+    htsCode_Icontains: String
+    unitOfDimensions: Float
+    unitOfDimensions_Icontains: Float
+    height: Float
+    height_Icontains: Float
+    width: Float
+    width_Icontains: Float
+    length: Float
+    length_Icontains: Float
+    downloadUrl: String
+    type: Float
+    archived: Boolean
+    customMetadata_Value: String
+    customMetadata_Value_Icontains: String
+    metadata_ProductCategoryTag1: String
+    metadata_ProductCategoryTag1_Icontains: String
+    metadata_ProductCategoryTag2: String
+    metadata_ProductCategoryTag2_Icontains: String
+    metadata_ProductCategoryTag3: String
+    metadata_ProductCategoryTag3_Icontains: String
+    metadata: String
+    filterParam: String
+    productChannel: String
+    collectionSlug: String
+    collectionId: String
+    checkouts: String
+    # Ordering
+    orderBy: String
+  ): ProductNodeConnection
+  skus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    ids_In: String
+    stripeId: String
+    stripeId_Icontains: String
+    deactivated: DateTime
+    deactivated_Icontains: DateTime
+    sku: String
+    sku_Icontains: String
+    quantity: Float
+    quantity_Lte: Float
+    quantity_Gte: Float
+    purchaseLimit: Float
+    purchaseLimit_Lte: Float
+    purchaseLimit_Gte: Float
+    basePrice: Float
+    basePrice_Lte: Float
+    basePrice_Gte: Float
+    salePrice: Float
+    salePrice_Lte: Float
+    salePrice_Gte: Float
+    unitOfWeight: Float
+    unitOfWeight_Icontains: Float
+    weight: Float
+    weight_Lte: Float
+    weight_Gte: Float
+    unitOfDimensions: Float
+    unitOfDimensions_Icontains: Float
+    height: Float
+    height_Lte: Float
+    height_Gte: Float
+    width: Float
+    width_Lte: Float
+    width_Gte: Float
+    length: Float
+    length_Lte: Float
+    length_Gte: Float
+    # Ordering
+    orderBy: String
+  ): SkuNodeConnection
+  productImages(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    orderingPosition: Float
+    # Ordering
+    orderBy: String
+  ): ProductImageNodeConnection
+  checkouts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    deactivated: DateTime
+    type: Float
+    name: String
+    name_Icontains: String
+    slug: String
+    slug_Icontains: String
+    archived: Boolean
+    # Ordering
+    orderBy: String
+  ): CheckoutNodeConnection
+  checkoutTrackingPixels(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    platform: Float
+    pixel: String
+    # Ordering
+    orderBy: String
+  ): CheckoutTrackingPixelNodeConnection
+  customPackageTypes(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    unitOfDimensions: Float
+    height: Float
+    height_Lte: Float
+    height_Gte: Float
+    width: Float
+    width_Lte: Float
+    width_Gte: Float
+    length: Float
+    length_Lte: Float
+    length_Gte: Float
+    # Ordering
+    orderBy: String
+  ): CustomPackageTypeNodeConnection
+  customCheckoutPackageTypes(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomCheckoutPackageTypeNodeConnection
+  shippingCheckoutRules(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ShippingCheckoutRuleNodeConnection
+  seo(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductSeoNodeConnection
+  metadataLabel(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    label: String
+    label_Icontains: String
+  ): MetadataLabelNodeConnection
+  customMetadataLabel(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomProductMetadataNodeConnection
+  domainMetadata(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductMetadataNodeConnection
+  keys(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ApiKeyNodeConnection
+  domainCollections(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CollectionNodeConnection
+  domainCollectionTags(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CollectionTagNodeConnection
+  domainMenus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): MenuNodeConnection
+  lookAndFeel(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    name: String
+    name_Icontains: String
+    # Ordering
+    orderBy: String
+  ): LookAndFeelNodeConnection
+  domainUploadedImages(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ImageUploadNodeConnection
+  customerSeenEvents(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomerSeenEventNodeConnection
+  customerAbandonedCheckoutEvents(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomerAbandonedCheckoutEventNodeConnection
+  corsWhitelist(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    host: String
+    host_Icontains: String
+    # Ordering
+    orderBy: String
+  ): CorsWhitelistNodeConnection
+  customerDomainProfiles(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomerDomainProfileNodeConnection
+  customerDomainVendorViews(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomerDomainVendorViewNodeConnection
+  isVendor: Boolean
+  fixedPackageTypes(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    unitOfDimensions: Float
+    height: Float
+    height_Lte: Float
+    height_Gte: Float
+    width: Float
+    width_Lte: Float
+    width_Gte: Float
+    length: Float
+    length_Lte: Float
+    length_Gte: Float
+    # Ordering
+    orderBy: String
+  ): FixedPackageTypeNodeConnection
+  carrierPackageTypes(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    unitOfDimensions: Float
+    height: Float
+    height_Lte: Float
+    height_Gte: Float
+    width: Float
+    width_Lte: Float
+    width_Gte: Float
+    length: Float
+    length_Lte: Float
+    length_Gte: Float
+    # Ordering
+    orderBy: String
+  ): CarrierPackageTypeNodeConnection
+  credits: Int
+  paymentCardCount: Int
+  defaultPaymentCard: PaymentCard
+  paymentCards: [PaymentCard]
+  invoices: [Invoice]
+  addOnPlans: [AddOnPlan]
+  ordersMetricsOneWeek: OrdersMetrics
+  ordersMetricsOneMonth: OrdersMetrics
+  ordersMetricsOneYear: OrdersMetrics
+  orderFulfilledCount: Int
+  orderCancelledCount: Int
+  orderPaidCount: Int
+  orderReturnedCount: Int
+  orderAbandonedCount: Int
+  productCount: Int
+  printifyProductCount: Int
+  archivedProductCount: Int
+  recentlyAddedProductCount: Int
+  checkoutPaymentPagesCount: Int
+  checkoutStorefrontsCount: Int
+  draftedProductCount: Int
+  checkoutCount: Int
+  archivedCheckoutCount: Int
+  orderCount: Int
+  qrCodeCount: Int
+  buyNowLinkCount: Int
+  userCount: Int
+  addOnCount: Int
+  totalRevenueYtd: Int
+  conversionRates(
+    pathnames: [String]
+    customUrl: String
+  ): [ConversionRateObjectType]
+  totalPerformanceMetrics(period: Int): TotalPerformanceMetricsObjectType
+  totalRevenuePlot(period: Int): [TotalRevenuePlotObjectType]
+  facebookFeedUrl: String
+  snapchatFeedUrl: String
+  apiKeys(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    modifiedOn: DateTime
+    id: ID
+    key: String
+    type: Float
+    # Ordering
+    orderBy: String
+  ): ApiKeyNodeConnection
+  productSeos(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    title: String
+    title_Icontains: String
+    description: String
+    description_Icontains: String
+  ): ProductSeoNodeConnection
+  productMetadata(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    productDominantColor1: String
+    productDominantColor1_Icontains: String
+    productDominantColor2: String
+    productDominantColor2_Icontains: String
+    productDominantColor3: String
+    productDominantColor3_Icontains: String
+    productDominantColor4: String
+    productDominantColor4_Icontains: String
+    productDominantColor5: String
+    productDominantColor5_Icontains: String
+    productCategoryTag1: String
+    productCategoryTag1_Icontains: String
+    productCategoryTag2: String
+    productCategoryTag2_Icontains: String
+    productCategoryTag3: String
+    productCategoryTag3_Icontains: String
+    productHtsCode: String
+    productHtsCode_Icontains: String
+  ): ProductMetadataNodeConnection
+  socialProfiles(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    createdOn: DateTime
+    modifiedOn: DateTime
+    careerPortal: String
+    careerPortal_Icontains: String
+    snapchat: String
+    snapchat_Icontains: String
+    facebook: String
+    facebook_Icontains: String
+    instagram: String
+    instagram_Icontains: String
+    youtube: String
+    youtube_Icontains: String
+    twitter: String
+    twitter_Icontains: String
+    pinterest: String
+    pinterest_Icontains: String
+    tiktok: String
+    tiktok_Icontains: String
+    # Ordering
+    orderBy: String
+  ): SocialProfileNodeConnection
+  generalInformation(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    modifiedOn: DateTime
+    id: ID
+    title: String
+    title_Icontains: String
+    description: String
+    description_Icontains: String
+  ): GeneralInformationNodeConnection
+  customerSupport(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    modifiedOn: DateTime
+    id: ID
+    body: String
+    body_Icontains: String
+  ): CustomerSupportNodeConnection
+  profiles(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    bio: String
+    bio_Icontains: String
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    domainId: ID
+    email: String
+    id: ID
+    slug: String
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    payoutType: Float
+    phoneNumber: String
+    phoneNumber_Icontains: String
+    # Ordering
+    orderBy: String
+  ): ProfileNodeConnection
+  collections(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    slug: String
+    name: String
+    name_Icontains: String
+    # Ordering
+    orderBy: String
+  ): CollectionNodeConnection
+  tags(name: String): [TagsObjectType]
+  totalProducts: Int
+  menus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    name: String
+    name_Icontains: String
+    archived: Boolean
+    # Ordering
+    orderBy: String
+  ): MenuNodeConnection
+  printifyStore(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    createdOn: DateTime
+    modifiedOn: DateTime
+    storeId: String
+    storeId_Icontains: String
+    name: String
+    name_Icontains: String
+    status: String
+    domainId: ID
+    # Ordering
+    orderBy: String
+  ): PrintifyStoreNodeConnection
+  productChannel: String
+  localDelivery(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    createdOn: DateTime
+    modifiedOn: DateTime
+    # Ordering
+    orderBy: String
+  ): LocalDeliveryNodeConnection
+  localPickup(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    createdOn: DateTime
+    modifiedOn: DateTime
+    # Ordering
+    orderBy: String
+  ): LocalPickupNodeConnection
+}
+
+type DomainNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [DomainNodeEdge]!
+}
+
+# A Relay edge containing a `DomainNode` and its cursor.
+type DomainNodeEdge {
+  # The item at the end of the edge
+  node: DomainNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input DownloadShippingDocumentsInput {
+  domainId: String!
+  orderIds: [String]!
+  downloadAll: Boolean
+  status: Int
+  clientMutationId: String
+}
+
+type DownloadShippingDocumentsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DownloadZippedQRCodeImagesInput {
+  domainId: String!
+  checkoutUrl: String!
+  checkoutName: String!
+  slugs: [String]!
+  clientMutationId: String
+}
+
+type DownloadZippedQRCodeImagesPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input DuplicateLookAndFeelInput {
+  id: String!
+  domainId: String!
+  name: String
+  clientMutationId: String
+}
+
+type DuplicateLookAndFeelPayload {
+  lookAndFeel: LookAndFeelNode
+  clientMutationId: String
+}
+
+input EditLookAndFeelNameInput {
+  domainId: String!
+  lookAndFeelId: String!
+  name: String!
+  clientMutationId: String
+}
+
+type EditLookAndFeelNamePayload {
+  lookAndFeel: LookAndFeelNode
+  clientMutationId: String
+}
+
+interface ElliotNode {
+  # The ID of the object.
+  id: ID!
+  isVendor: Boolean
+}
+
+input ExportPrintifyOrdersInput {
+  domainId: String!
+  token: String
+  clientMutationId: String
+}
+
+type ExportPrintifyOrdersPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input ExportProductsInput {
+  domainId: String
+  clientMutationId: String
+}
+
+type ExportProductsPayload {
+  product: ProductNode
+  success: Boolean
+  clientMutationId: String
+}
+
+type FixedPackageTypeNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  label: String!
+  # Unit of dimensions for package
+  unitOfDimensions: Int!
+  # Height of package
+  height: Float!
+  # Width of package
+  width: Float!
+  packageType: String!
+  # Length of package
+  length: Float!
+  isVendor: Boolean
+}
+
+type FixedPackageTypeNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [FixedPackageTypeNodeEdge]!
+}
+
+# A Relay edge containing a `FixedPackageTypeNode` and its cursor.
+type FixedPackageTypeNodeEdge {
+  # The item at the end of the edge
+  node: FixedPackageTypeNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type FlatRateShippingOptionNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  label: String!
+  domestic: Int
+  international: Int
+  # Domain that this flat rate shipping option belongs to
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type FlatRateShippingOptionNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [FlatRateShippingOptionNodeEdge]!
+}
+
+# A Relay edge containing a `FlatRateShippingOptionNode` and its cursor.
+type FlatRateShippingOptionNodeEdge {
+  # The item at the end of the edge
+  node: FlatRateShippingOptionNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input FontInputObject {
+  fontSize: String
+  fontWeight: String
+  fontFamily: String
+}
+
+input FooterInputObject {
+  styles: GranularInputObject
+  logo: LogoInputObject
+}
+
+type GeneralInformationNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  title: String!
+  description: String!
+  # URL of the image
+  favicon: String
+  googleTag: String!
+  isVendor: Boolean
+}
+
+type GeneralInformationNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [GeneralInformationNodeEdge]!
+}
+
+# A Relay edge containing a `GeneralInformationNode` and its cursor.
+type GeneralInformationNodeEdge {
+  # The item at the end of the edge
+  node: GeneralInformationNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# The `GenericScalar` scalar type
+# represents a generic
+# GraphQL scalar value
+# that could be:
+# String, Boolean, Int, Float, List or Object.
+scalar GenericScalar
+
+input GranularInputObject {
+  font: FontInputObject
+  border: BorderInputObject
+  text: TextInputObject
+  background: BackgroundInputObject
+  icon: IconTextInputObject
+  padding: String
+  margin: String
+  boxShadow: String
+  lineHeight: String
+  anchor: AnchorInputObject
+}
+
+input HeaderInputObject {
+  styles: GranularInputObject
+  logo: LogoInputObject
+  hideMenuIcon: Boolean
+  hidePromoHeader: Boolean
+  menuIconPosition: Int
+}
+
+input HeroInputObject {
+  sliders: [SlideInputObject]
+  title: String
+  subTitle: String
+  headline: String
+  productBucketLink: String
+  link: LinkInputObject
+}
+
+input HideSectionInputObject {
+  newsletter: Boolean
+  productGrid: Boolean
+  productGrid2: Boolean
+  productBucket: Boolean
+  hero: Boolean
+  instagram: Boolean
+}
+
+input HomepageInputObject {
+  backgroundImage: String
+  sectionOne: HomeSectionOne
+  socialProvider: SocialProviderInputObject
+  customerSupport: String
+  keyInformation: KeyInformationInputObject
+  pixel: PixelInputObject
+  instagramGallery: InstagramGalleryInputObject
+  currency: String
+  language: String
+  customMeta: String
+}
+
+input HomeSectionOne {
+  title: String
+  subTitle: String
+}
+
+input IconTextInputObject {
+  textColor: String
+  backgroundColor: String
+  hoverColor: String
+  menuMarginRight: String
+  menuMarginLeft: String
+}
+
+type ImageUploadNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # URL of the image
+  imageUrl: String
+  # Domain that this image belongs to
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type ImageUploadNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [ImageUploadNodeEdge]!
+}
+
+# A Relay edge containing a `ImageUploadNode` and its cursor.
+type ImageUploadNodeEdge {
+  # The item at the end of the edge
+  node: ImageUploadNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input ImportPrintifyCatalogInput {
+  domainId: String!
+  shopId: String!
+  shopName: String!
+  clientMutationId: String
+}
+
+type ImportPrintifyCatalogPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input ImportProductsInput {
+  domainId: String
+  csvData: [ImportProductsInputObject]
+  clientMutationId: String
+}
+
+input ImportProductsInputObject {
+  skuId: String
+  stripeId: String
+  name: String
+  description: String
+  sku: String
+  downloadUrl: String
+  gender: String
+  attribute1: String
+  attribute2: String
+  attribute3: String
+  attribute1Value: String
+  attribute2Value: String
+  attribute3Value: String
+  variationImage: String
+  image1: String
+  image2: String
+  image3: String
+  image4: String
+  image5: String
+  basePrice: String
+  salePrice: String
+  quantity: String
+  unitWeight: String
+  weight: String
+  unitDimensions: String
+  height: String
+  width: String
+  length: String
+  seoTitle: String
+  seoDescription: String
+  vendorName: String
+  experienceIds: String
+  timestamp: String
+  productDominantColor1: String
+  productDominantColor2: String
+  productDominantColor3: String
+  productDominantColor4: String
+  productDominantColor5: String
+  productCategoryTag1: String
+  productCategoryTag2: String
+  productCategoryTag3: String
+  productHtsCode: String
+}
+
+type ImportProductsPayload {
+  product: ProductNode
+  success: Boolean
+  clientMutationId: String
+}
+
+input ImportVendorsInput {
+  domainId: String!
+  vendorsList: [VendorsInputObject]!
+  clientMutationId: String
+}
+
+type ImportVendorsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input InstagramGalleryInputObject {
+  userId: String
+  accessToken: String
+}
+
+type Invoice {
+  id: String
+  startDatetime: DateTimeScalar
+  endDatetime: DateTimeScalar
+  url: String
+}
+
+# Allows use of a JSON String for input / output from the GraphQL schema.
+#
+# Use of this type is *not recommended* as you lose the benefits of having a defined, static
+# schema (one of the key benefits of GraphQL).
+scalar JSONString
+
+input KeyInformationInputObject {
+  returnPolicy: String
+  sizeGuide: String
+  privacyPolicy: String
+  termsAndConditions: String
+  faq: String
+  about: String
+  contact: String
+  hideReturnPolicyTitle: Boolean
+  hideSizeGuideTitle: Boolean
+  hidePrivacyPolicyTitle: Boolean
+  hideTermsAndConditionsTitle: Boolean
+  hideFaqTitle: Boolean
+  hideAboutTitle: Boolean
+  hideContactTitle: Boolean
+  hideSocialIcon: Boolean
+  hideLocalization: Boolean
+}
+
+input LinkInputObject {
+  type: Int
+  path: String
+}
+
+type LocalDeliveryNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  deliveryRadius: Int!
+  # Whether this setting is active
+  active: Boolean!
+  deliveryCost: Float
+  deliveryWindow: String!
+  # Domain that this Local delivery belongs to
+  domain: DomainNode!
+  localDelivery(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderNodeConnection
+  isVendor: Boolean
+}
+
+type LocalDeliveryNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [LocalDeliveryNodeEdge]!
+}
+
+# A Relay edge containing a `LocalDeliveryNode` and its cursor.
+type LocalDeliveryNodeEdge {
+  # The item at the end of the edge
+  node: LocalDeliveryNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type LocalPickupNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  pickupWindow: Int!
+  # Whether this setting is active
+  active: Boolean!
+  # Location that this Local pickup location belongs to
+  location: ShippingLocationNode!
+  # Domain that this Local Pickup belongs to
+  domain: DomainNode!
+  localPickup(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderNodeConnection
+  isVendor: Boolean
+}
+
+type LocalPickupNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [LocalPickupNodeEdge]!
+}
+
+# A Relay edge containing a `LocalPickupNode` and its cursor.
+type LocalPickupNodeEdge {
+  # The item at the end of the edge
+  node: LocalPickupNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input LogoInputObject {
+  width: String
+  height: String
+}
+
+type LookAndFeelNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Name of Look and feel
+  name: String!
+  theme: Int!
+  collections(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CollectionNodeConnection
+  # Menu that this look and feel belongs to
+  menu: MenuNode
+  # Domain that this look and feel belongs to
+  domain: DomainNode!
+  checkoutLookAndFeel(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CheckoutNodeConnection
+  isVendor: Boolean
+  styles: GenericScalar
+  hero: GenericScalar
+  productBucket: GenericScalar
+  productGrid: GenericScalar
+  seo: GenericScalar
+  newsletter: GenericScalar
+  hideSection: GenericScalar
+  customCss: GenericScalar
+  cart: GenericScalar
+  options: GenericScalar
+  header: GenericScalar
+  footer: GenericScalar
+  homepage: GenericScalar
+}
+
+type LookAndFeelNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [LookAndFeelNodeEdge]!
+}
+
+# A Relay edge containing a `LookAndFeelNode` and its cursor.
+type LookAndFeelNodeEdge {
+  # The item at the end of the edge
+  node: LookAndFeelNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input ManagePrintifyStoreInput {
+  domainId: String!
+  manageProducts: Boolean!
+  isVendor: Boolean
+  clientMutationId: String
+}
+
+type ManagePrintifyStorePayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input MarkCustomersAsSeenInput {
+  customerIds: [String]!
+  domainId: String!
+  userId: String!
+  clientMutationId: String
+}
+
+type MarkCustomersAsSeenPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input MarkOrdersFulfilledInput {
+  domainId: String!
+  orderIds: [String]!
+  fullfillAll: Boolean
+  status: Int
+  clientMutationId: String
+}
+
+type MarkOrdersFulfilledPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input MarkSingleOrderFulfilledInput {
+  domainId: String!
+  orderId: String!
+  orderSkus: [String]
+  clientMutationId: String
+}
+
+type MarkSingleOrderFulfilledPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input MenuItemInputObject {
+  id: String
+  text: String
+  children: [MenuItemSecondInputObject]
+  nestedIn: String
+  isCustom: Boolean
+  link: String
+}
+
+input MenuItemSecondInputObject {
+  id: String
+  text: String
+  children: [MenuItemThirdInputObject]
+  nestedIn: String
+  link: String
+  isCustom: Boolean
+}
+
+input MenuItemThirdInputObject {
+  id: String
+  text: String
+  children: JSONString
+  nestedIn: String
+  link: String
+  isCustom: Boolean
+}
+
+type MenuNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Name
+  name: String!
+  slug: String
+  # Domain that this menu belongs to
+  domain: DomainNode!
+  # Designates whether this menu is archived and no longer used
+  archived: Boolean!
+  checkoutMenu(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CheckoutNodeConnection
+  lookAndFeelMenu(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): LookAndFeelNodeConnection
+  isVendor: Boolean
+  items: GenericScalar
+  checkoutCount: Int
+}
+
+type MenuNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [MenuNodeEdge]!
+}
+
+# A Relay edge containing a `MenuNode` and its cursor.
+type MenuNodeEdge {
+  # The item at the end of the edge
+  node: MenuNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input MetadataLabelInputObject {
+  id: String
+  label: String!
+  value: String
+  inputType: String
+  tagMetadata: Boolean
+}
+
+# An enumeration.
+enum MetadataLabelInputType {
+  # TEXT_INPUT
+  TEXT_INPUT
+  # TEXT_EDITOR
+  TEXT_EDITOR
+  # DATE_TIME
+  DATE_TIME
+  # MEDIA
+  MEDIA
+}
+
+type MetadataLabelNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  label: String!
+  # metadata input type choices
+  inputType: MetadataLabelInputType!
+  # Designates  a metadata attribute & value are to be tagged in Collection
+  tagMetadata: Boolean!
+  # Designates whether the label is autogenerated
+  isAutogenerated: Boolean!
+  # Domain that this Metadata label belongs to
+  domain: DomainNode!
+  customLabel(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomProductMetadataNodeConnection
+  isVendor: Boolean
+}
+
+type MetadataLabelNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [MetadataLabelNodeEdge]!
+}
+
+# A Relay edge containing a `MetadataLabelNode` and its cursor.
+type MetadataLabelNodeEdge {
+  # The item at the end of the edge
+  node: MetadataLabelNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type Metrics {
+  ordersRevenue: Int
+  averageOrderValue: Int
+  numOrders: Int
+  timeToPurchase: Int
+  graphMetrics: [RevenuePlotObjectType]
+}
+
+input ModifyCustomerAddressInput {
+  address1: String!
+  address2: String
+  addressId: Int!
+  city: String!
+  country: String!
+  isDefault: Boolean
+  state: String
+  zipCode: String!
+  clientMutationId: String
+}
+
+type ModifyCustomerAddressPayload {
+  address: AddressNode
+  clientMutationId: String
+}
+
+type Mutation {
+  activateCheckout(input: ActivateCheckoutInput!): ActivateCheckoutPayload
+  addAddressForCustomer(
+    input: AddAddressForCustomerInput!
+  ): AddAddressForCustomerPayload
+  addCredits(input: AddCreditsInput!): AddCreditsPayload
+  addCustomerAbandonedCheckoutEvents(
+    input: AddCustomerAbandonedCheckoutEventsInput!
+  ): AddCustomerAbandonedCheckoutEventsPayload
+  addPaymentCards(input: AddPaymentCardsInput!): AddPaymentCardsPayload
+  addPromotionToCheckout(
+    input: AddPromotionToCheckoutInput!
+  ): AddPromotionToCheckoutPayload
+  addUser(input: AddUserInput!): AddUserPayload
+  archiveCheckouts(input: ArchiveCheckoutsInput!): ArchiveCheckoutsPayload
+  archiveCollections(input: ArchiveCollectionsInput!): ArchiveCollectionsPayload
+  archiveMenus(input: ArchiveMenusInput!): ArchiveMenusPayload
+  archiveProductExperiences(
+    input: ArchiveProductExperiencesInput!
+  ): ArchiveProductExperiencesPayload
+  archiveProducts(input: ArchiveProductsInput!): ArchiveProductsPayload
+  cloneProducts(input: CloneProductsInput!): CloneProductsPayload
+  connectStripeAccount(
+    input: ConnectStripeAccountInput!
+  ): ConnectStripeAccountPayload
+  createAbandonedOrder(
+    input: CreateAbandonedOrderInput!
+  ): CreateAbandonedOrderPayload
+  createAddOns(input: CreateAddOnsInput!): CreateAddOnsPayload
+  createCheckout(input: CreateCheckoutInput!): CreateCheckoutPayload
+  createCollection(input: CreateCollectionInput!): CreateCollectionPayload
+  createDomain(input: CreateDomainInput!): CreateDomainPayload
+  createOrUpdateApiKey(
+    input: CreateOrUpdateApiKeyInput!
+  ): CreateOrUpdateApiKeyPayload
+  createOrUpdateCheckoutTrackingPixel(
+    input: CreateOrUpdateCheckoutTrackingPixelInput!
+  ): CreateOrUpdateCheckoutTrackingPixelPayload
+  createOrUpdateCorsWhitelist(
+    input: CreateOrUpdateCorsWhitelistInput!
+  ): CreateOrUpdateCorsWhitelistPayload
+  createOrUpdateCustomProductMetadata(
+    input: CreateOrUpdateCustomProductMetadataInput!
+  ): CreateOrUpdateCustomProductMetadataPayload
+  createOrUpdateFlatRateShippingOption(
+    input: CreateOrUpdateFlatRateShippingOptionInput!
+  ): CreateOrUpdateFlatRateShippingOptionPayload
+  createOrUpdateLookAndFeel(
+    input: CreateOrUpdateLookAndFeelInput!
+  ): CreateOrUpdateLookAndFeelPayload
+  createOrUpdateMenu(input: CreateOrUpdateMenuInput!): CreateOrUpdateMenuPayload
+  createOrUpdateMetadataLabel(
+    input: CreateOrUpdateMetaLabelInput!
+  ): CreateOrUpdateMetaLabelPayload
+  createOrUpdateProductMetadata(
+    input: CreateOrUpdateProductMetadataInput!
+  ): CreateOrUpdateProductMetadataPayload
+  createOrUpdateProductSeo(
+    input: CreateOrUpdateProductSeoInput!
+  ): CreateOrUpdateProductSeoPayload
+  createOrUpdateProfile(
+    input: CreateOrUpdateProfileInput!
+  ): CreateOrUpdateProfilePayload
+  createOrUpdateSkus(input: CreateOrUpdateSkusInput!): CreateOrUpdateSkusPayload
+  createOrder(input: CreateOrderInput!): CreateOrderPayload
+  createProduct(input: CreateProductInput!): CreateProductPayload
+  createPromotion(input: CreatePromotionInput!): CreatePromotionPayload
+  createShippingLocation(
+    input: CreateShippingLocationInput!
+  ): CreateShippingLocationPayload
+  createSku(input: CreateSkuInput!): CreateSkuPayload
+  deactivateCheckout(input: DeactivateCheckoutInput!): DeactivateCheckoutPayload
+  deleteAddOns(input: DeleteAddOnsInput!): DeleteAddOnsPayload
+  deleteApiKey(input: DeleteApiKeyInput!): DeleteApiKeyPayload
+  deleteAttribute(input: DeleteAttributeInput!): DeleteAttributePayload
+  deleteAttributeValue(
+    input: DeleteAttributeValueInput!
+  ): DeleteAttributeValuePayload
+  deleteCollections(input: DeleteCollectionsInput!): DeleteCollectionsPayload
+  deleteFlatRateShippingOption(
+    input: DeleteFlatRateShippingOptionInput!
+  ): DeleteFlatRateShippingOptionPayload
+  deleteLookAndFeels(input: DeleteLookAndFeelsInput!): DeleteLookAndFeelsPayload
+  deleteMenus(input: DeleteMenusInput!): DeleteMenusPayload
+  deleteMetadata(input: DeleteMetadataLabelsInput!): DeleteMetadataLabelsPayload
+  deletePaymentCards(input: DeletePaymentCardsInput!): DeletePaymentCardsPayload
+  deleteProductImage(input: DeleteProductImageInput!): DeleteProductImagePayload
+  deletePromotion(input: DeletePromotionInput!): DeletePromotionPayload
+  deleteShippingLocation(
+    input: DeleteShippingLocationInput!
+  ): DeleteShippingLocationPayload
+  deleteSku(input: DeleteSkuInput!): DeleteSkuPayload
+  downloadShippingDocuments(
+    input: DownloadShippingDocumentsInput!
+  ): DownloadShippingDocumentsPayload
+  duplicateLookAndFeel(
+    input: DuplicateLookAndFeelInput!
+  ): DuplicateLookAndFeelPayload
+  editLookAndFeelName(
+    input: EditLookAndFeelNameInput!
+  ): EditLookAndFeelNamePayload
+  exportProducts(input: ExportProductsInput!): ExportProductsPayload
+  importPrintifyCatalog(
+    input: ImportPrintifyCatalogInput!
+  ): ImportPrintifyCatalogPayload
+  importProducts(input: ImportProductsInput!): ImportProductsPayload
+  markCustomersAsSeen(
+    input: MarkCustomersAsSeenInput!
+  ): MarkCustomersAsSeenPayload
+  markOrdersFulfilled(
+    input: MarkOrdersFulfilledInput!
+  ): MarkOrdersFulfilledPayload
+  modifyCustomerAddress(
+    input: ModifyCustomerAddressInput!
+  ): ModifyCustomerAddressPayload
+  refreshToken(token: String!): Refresh
+  importVendors(input: ImportVendorsInput!): ImportVendorsPayload
+  register(input: RegisterInput!): RegisterPayload
+  registerFromInvite(input: RegisterFromInviteInput!): RegisterFromInvitePayload
+  removeCorsWhitelist(
+    input: RemoveCorsWhitelistInput!
+  ): RemoveCorsWhitelistPayload
+  removeFreeShippingThreshold(
+    input: RemoveFreeShippingThresholdInput!
+  ): RemoveFreeShippingThresholdPayload
+  removePromotionFromCheckout(
+    input: RemovePromotionFromCheckoutInput!
+  ): RemovePromotionFromCheckoutPayload
+  removeUserFromDomain(
+    input: RemoveUserFromDomainInput!
+  ): RemoveUserFromDomainPayload
+  resetPassword(input: ResetPasswordInput!): ResetPasswordPayload
+  resetPasswordConfirm(
+    input: ResetPasswordConfirmInput!
+  ): ResetPasswordConfirmPayload
+  sendOrdersExportEmail(
+    input: SendOrdersExportEmailInput!
+  ): SendOrdersExportEmailPayload
+  setDefaultPaymentCard(
+    input: SetDefaultPaymentCardInput!
+  ): SetDefaultPaymentCardPayload
+  setDomainDelinquent(
+    input: SetDomainDelinquentInput!
+  ): SetDomainDelinquentPayload
+  setDomainPaid(input: SetDomainPaidInput!): SetDomainPaidPayload
+  # Obtain JSON Web Token mutation
+  tokenAuth(email: String!, password: String!): ObtainJSONWebToken
+  transferDomainOwnership(
+    input: TransferDomainOwnershipInput!
+  ): TransferDomainOwnershipPayload
+  unarchiveProducts(input: UnarchiveProductsInput!): UnarchiveProductsPayload
+  updateAttributes(input: UpdateAttributesInput!): UpdateAttributesPayload
+  updateBranding(input: UpdateBrandingInput!): UpdateBrandingPayload
+  updateCheckoutName(input: UpdateCheckoutNameInput!): UpdateCheckoutNamePayload
+  updateCheckoutProduct(
+    input: UpdateCheckoutProductInput!
+  ): UpdateCheckoutProductPayload
+  updateCompany(input: UpdateCompanyInput!): UpdateCompanyPayload
+  updateCustomerSupport(
+    input: UpdateCustomerSupportInput!
+  ): UpdateCustomerSupportPayload
+  updateDomain(input: UpdateDomainInput!): UpdateDomainPayload
+  updateExperienceProducts(
+    input: UpdateExperienceProductInput!
+  ): UpdateExperienceProductPayload
+  updateFlatRateShippingOption(
+    input: UpdateFlatRateShippingOptionInput!
+  ): UpdateFlatRateShippingOptionPayload
+  updateGeneralInformation(
+    input: UpdateGeneralInformationInput!
+  ): UpdateGeneralInformationPayload
+  updateLocalDelivery(
+    input: UpdateLocalDeliveryInput!
+  ): UpdateLocalDeliveryPayload
+  updateLocalPickup(input: UpdateLocalPickupInput!): UpdateLocalPickupPayload
+  updateOrderStatus(input: UpdateOrderStatusInput!): UpdateOrderStatusPayload
+  updateProduct(input: UpdateProductInput!): UpdateProductPayload
+  updateProductAttributes(
+    input: UpdateProductAttributesInput!
+  ): UpdateProductAttributesPayload
+  updateShippingLocation(
+    input: UpdateShippingLocationInput!
+  ): UpdateShippingLocationPayload
+  updateSocialProfile(
+    input: UpdateSocialProfileInput!
+  ): UpdateSocialProfilePayload
+  updateStorefrontProducts(
+    input: UpdateStoreFrontProductsInput!
+  ): UpdateStoreFrontProductsPayload
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+  uploadImage(input: UploadImageInput!): UploadImagePayload
+  uploadProductImage(input: UploadProductImageInput!): UploadProductImagePayload
+  uploadSkuImage(input: UploadSkuImageInput!): UploadSkuImagePayload
+  verifyToken(token: String!): Verify
+  cancelOrder(input: CancelOrderInput!): CancelOrderPayload
+  cancelSingleOrder(input: CancelSingleOrderInput!): CancelSingleOrderPayload
+  createReturnLabel(input: CreateRefundLabelInput!): CreateRefundLabelPayload
+  createReturnSingleOrder(
+    input: CreateRefundSingleOrderInput!
+  ): CreateRefundSingleOrderPayload
+  downloadZippedQrcodeImages(
+    input: DownloadZippedQRCodeImagesInput!
+  ): DownloadZippedQRCodeImagesPayload
+  markSingleOrderFulfilled(
+    input: MarkSingleOrderFulfilledInput!
+  ): MarkSingleOrderFulfilledPayload
+  resendInvitation(input: ResendInvitationInput!): ResendInvitationPayload
+  ExportPrintifyOrders(
+    input: ExportPrintifyOrdersInput!
+  ): ExportPrintifyOrdersPayload
+  connectPrintifyStore(
+    input: ConnectPrintifyStoreInput!
+  ): ConnectPrintifyStorePayload
+  createOrUpdatePackageType(
+    input: CreateOrUpdatePackageTypeInput!
+  ): CreateOrUpdatePackageTypePayload
+  deletePackageType(input: DeletePackageTypeInput!): DeletePackageTypePayload
+  managePrintifyStore(
+    input: ManagePrintifyStoreInput!
+  ): ManagePrintifyStorePayload
+  syncPrintifyStores(input: SyncPrintifyStoresInput!): SyncPrintifyStoresPayload
+  SignupViabill(input: SignupViabillInput!): SignupViabillPayload
+}
+
+input NewsletterInputObject {
+  title: String
+  subTitle: String
+  content: String
+}
+
+# Obtain JSON Web Token mutation
+type ObtainJSONWebToken {
+  token: String
+}
+
+input OptionsInputObject {
+  productDetailPage: Int
+  productListingPage: Int
+  header: Int
+  footer: Int
+  homepage: Int
+  layout: Int
+}
+
+# An enumeration.
+enum OrderChannel {
+  # ELLIOT
+  ELLIOT
+  # PRINTIFY
+  PRINTIFY
+}
+
+type OrderCheckoutNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  order: OrderNode!
+  checkout: CheckoutNode!
+  orderTotal: Int
+  isVendor: Boolean
+}
+
+type OrderCheckoutNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [OrderCheckoutNodeEdge]!
+}
+
+# A Relay edge containing a `OrderCheckoutNode` and its cursor.
+type OrderCheckoutNodeEdge {
+  # The item at the end of the edge
+  node: OrderCheckoutNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type OrderNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Stripe ID for order
+  stripeId: String!
+  orderStatus: Int!
+  # Tax for order
+  tax: Int!
+  # Duty for international orders
+  duty: Int!
+  # Shipping cost for order
+  shippingCost: Int
+  discount: Int
+  # Total order amount
+  orderTotal: Int!
+  # Total order amount
+  subTotal: Int
+  # Total amount that vendor receives
+  vendorTotal: Int!
+  insuranceAmount: Int!
+  stripeChargeFee: Int
+  # Currency of order total
+  currency: String!
+  payoutType: Int!
+  paymentMethod: Int!
+  # Designates whether the order has been refunded
+  refundStatus: Boolean!
+  customerName: String!
+  customerEmail: String!
+  customerPhoneNumber: String!
+  shippingAddress1: String
+  shippingAddress2: String
+  shippingCity: String
+  shippingState: String
+  shippingZipCode: String
+  shippingCountry: String!
+  shippingMethod: String
+  billingAddress1: String
+  billingAddress2: String
+  billingCity: String
+  billingState: String
+  billingCountry: String!
+  billingZipCode: String
+  masterShippingLabelUrl: String
+  masterShippingTrackingNumber: String
+  masterShippingTrackingUrl: String
+  masterShippingEta: String
+  masterCommercialInvoice: String
+  payoutDate: DateTime
+  payoutId: String
+  payoutInvoiceUrl: String
+  elliotCommission: Int
+  skus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    ids_In: String
+    stripeId: String
+    stripeId_Icontains: String
+    deactivated: DateTime
+    deactivated_Icontains: DateTime
+    sku: String
+    sku_Icontains: String
+    quantity: Float
+    quantity_Lte: Float
+    quantity_Gte: Float
+    purchaseLimit: Float
+    purchaseLimit_Lte: Float
+    purchaseLimit_Gte: Float
+    basePrice: Float
+    basePrice_Lte: Float
+    basePrice_Gte: Float
+    salePrice: Float
+    salePrice_Lte: Float
+    salePrice_Gte: Float
+    unitOfWeight: Float
+    unitOfWeight_Icontains: Float
+    weight: Float
+    weight_Lte: Float
+    weight_Gte: Float
+    unitOfDimensions: Float
+    unitOfDimensions_Icontains: Float
+    height: Float
+    height_Lte: Float
+    height_Gte: Float
+    width: Float
+    width_Lte: Float
+    width_Gte: Float
+    length: Float
+    length_Lte: Float
+    length_Gte: Float
+    # Ordering
+    orderBy: String
+  ): SkuNodeConnection
+  checkouts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    deactivated: DateTime
+    type: Float
+    name: String
+    name_Icontains: String
+    slug: String
+    slug_Icontains: String
+    archived: Boolean
+    # Ordering
+    orderBy: String
+  ): CheckoutNodeConnection
+  domain: DomainNode!
+  # order channel
+  channel: OrderChannel!
+  # Designates whether the printify order is already exported to printify
+  exported: Boolean!
+  customer: CustomerNode
+  localPickupWindow: Int
+  localDeliveryWindow: Int
+  # Local pick up location
+  localPickup: LocalPickupNode
+  # Order Local delivery
+  localDelivery: LocalDeliveryNode
+  viabillTransactionId: String
+  viabillChargeFee: Int
+  vendorOrders(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    modifiedOn: DateTime
+    id: ID
+    orderId: ID
+    domainId: ID
+    tax: Float
+    tax_Lte: Float
+    tax_Gte: Float
+    duty: Float
+    duty_Lte: Float
+    duty_Gte: Float
+    shippingCost: Float
+    shippingCost_Lte: Float
+    shippingCost_Gte: Float
+    vendorTotal: Float
+    vendorTotal_Lte: Float
+    vendorTotal_Gte: Float
+    stripeChargeFee: Float
+    stripeChargeFee_Lte: Float
+    stripeChargeFee_Gte: Float
+    payoutType: Float
+    masterShippingLabelUrl: String
+    masterShippingLabelUrl_Icontains: String
+    masterShippingTrackingNumber: String
+    masterShippingTrackingNumber_Icontains: String
+    masterShippingTrackingUrl: String
+    masterShippingTrackingUrl_Icontains: String
+    masterCommercialInvoice: String
+    masterCommercialInvoice_Icontains: String
+    masterShippingEta: String
+    masterShippingEta_Icontains: String
+    payoutDate: DateTime
+    payoutId: String
+    payoutId_Icontains: String
+    payoutId_Isnull: Boolean
+    payoutInvoiceUrl: String
+    payoutInvoiceUrl_Icontains: String
+    commission: Float
+    commission_Lte: Float
+    commission_Gte: Float
+    # Ordering
+    orderBy: String
+  ): VendorOrderNodeConnection
+  orderSkus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderSkuNodeConnection
+  shipments: [ShipmentNode]
+  orderCheckouts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    # Ordering
+    orderBy: String
+  ): OrderCheckoutNodeConnection
+  isVendor: Boolean
+  items: [OrderSkuNode]
+  customerId: String
+}
+
+type OrderNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [OrderNodeEdge]!
+}
+
+# A Relay edge containing a `OrderNode` and its cursor.
+type OrderNodeEdge {
+  # The item at the end of the edge
+  node: OrderNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type OrderSkuNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  status: Int!
+  order: OrderNode!
+  vendorOrder: VendorOrderNode
+  sku: SkuNode!
+  quantity: Int!
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type OrderSkuNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [OrderSkuNodeEdge]!
+}
+
+# A Relay edge containing a `OrderSkuNode` and its cursor.
+type OrderSkuNodeEdge {
+  # The item at the end of the edge
+  node: OrderSkuNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type OrdersMetrics {
+  previousMetrics: Metrics
+  currentMetrics: Metrics
+}
+
+# The Relay compliant `PageInfo` type, containing data necessary to paginate this connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type PaymentCard {
+  id: String
+  brand: String
+  last4: String
+}
+
+input PixelInputObject {
+  adwords: String
+  facebook: String
+  googleTag: String
+  pinterest: String
+  snapchat: String
+  twitter: String
+}
+
+type PrintifyStoreNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Printify Store ID
+  storeId: String!
+  # Printify Store ID
+  catalogCount: String!
+  # Catalog import status
+  status: String!
+  name: String!
+  domain: DomainNode!
+  salesChannel: String!
+  isVendor: Boolean
+}
+
+type PrintifyStoreNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [PrintifyStoreNodeEdge]!
+}
+
+# A Relay edge containing a `PrintifyStoreNode` and its cursor.
+type PrintifyStoreNodeEdge {
+  # The item at the end of the edge
+  node: PrintifyStoreNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input ProductBucketInputObject {
+  backgroundColor: String
+  featuredProductImage: String
+  heroText: String
+  heroTitle: String
+  productBucketLink: String
+  defaultImage: String
+  defaultTitle: String
+  defaultSubTitle: String
+  link: LinkInputObject
+  linkText: String
+}
+
+input ProductGridInputObject {
+  title: String
+  subTitle: String
+  buttonText: String
+  productBucketLink: String
+  link: LinkInputObject
+}
+
+input ProductImageInputObject {
+  id: String
+  image: Upload
+  url: String
+}
+
+type ProductImageNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  url: String
+  image: String
+  # Position of ordering for this image
+  orderingPosition: Int!
+  # Product this image is associated with
+  product: ProductNode!
+  # Domain that this product belongs to
+  domain: DomainNode!
+  # Printify id for product-image
+  printifyId: String
+  isVendor: Boolean
+}
+
+type ProductImageNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [ProductImageNodeEdge]!
+}
+
+# A Relay edge containing a `ProductImageNode` and its cursor.
+type ProductImageNodeEdge {
+  # The item at the end of the edge
+  node: ProductImageNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type ProductMetadataNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  productDominantColor1: String
+  productDominantColor2: String
+  productDominantColor3: String
+  productDominantColor4: String
+  productDominantColor5: String
+  # Product category tag 1 metadata
+  productCategoryTag1: String
+  # Product category tag 2 metadata
+  productCategoryTag2: String
+  # Product category tag 3 metadata
+  productCategoryTag3: String
+  # Product hts code metadata
+  productHtsCode: String
+  # Product that this Metadata belongs to
+  product: ProductNode!
+  # Domain that this Metadata belongs to
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type ProductMetadataNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [ProductMetadataNodeEdge]!
+}
+
+# A Relay edge containing a `ProductMetadataNode` and its cursor.
+type ProductMetadataNodeEdge {
+  # The item at the end of the edge
+  node: ProductMetadataNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type ProductNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  productChannel: String
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Stripe ID for product
+  stripeId: String!
+  # Name of product
+  name: String!
+  description: String
+  shortDescription: String
+  gender: Int
+  # Unit of weight for product
+  unitOfWeight: Int
+  # Weight of product
+  weight: Float
+  # Designates whether this product is taxable
+  isTaxable: Boolean!
+  htsCode: String
+  # Unit of dimensions for product
+  unitOfDimensions: Int
+  # Height of product
+  height: Float
+  # Width of product
+  width: Float
+  # Length of product
+  length: Float
+  slug: String
+  # Type of product (Downloads page or None Downloads )
+  type: Int!
+  downloadUrl: String
+  insuranceAmount: Int!
+  # Domain that this product belongs to
+  domain: DomainNode!
+  # Vendor that this product belongs to
+  vendor: UserNode
+  # Designates whether this product is archived and no longer used
+  archived: Boolean!
+  filterParam: GenericScalar
+  # Printify id for product
+  printifyId: String
+  # Printify store for sproductku
+  printifyStore: String
+  # Printify store for name for product
+  printifyStoreName: String
+  skus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    ids_In: String
+    stripeId: String
+    stripeId_Icontains: String
+    deactivated: DateTime
+    deactivated_Icontains: DateTime
+    sku: String
+    sku_Icontains: String
+    quantity: Float
+    quantity_Lte: Float
+    quantity_Gte: Float
+    purchaseLimit: Float
+    purchaseLimit_Lte: Float
+    purchaseLimit_Gte: Float
+    basePrice: Float
+    basePrice_Lte: Float
+    basePrice_Gte: Float
+    salePrice: Float
+    salePrice_Lte: Float
+    salePrice_Gte: Float
+    unitOfWeight: Float
+    unitOfWeight_Icontains: Float
+    weight: Float
+    weight_Lte: Float
+    weight_Gte: Float
+    unitOfDimensions: Float
+    unitOfDimensions_Icontains: Float
+    height: Float
+    height_Lte: Float
+    height_Gte: Float
+    width: Float
+    width_Lte: Float
+    width_Gte: Float
+    length: Float
+    length_Lte: Float
+    length_Gte: Float
+    # Ordering
+    orderBy: String
+  ): SkuNodeConnection
+  images(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    orderingPosition: Float
+    # Ordering
+    orderBy: String
+  ): ProductImageNodeConnection
+  checkoutProduct(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CheckoutNodeConnection
+  checkouts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    deactivated: DateTime
+    type: Float
+    name: String
+    name_Icontains: String
+    slug: String
+    slug_Icontains: String
+    archived: Boolean
+    # Ordering
+    orderBy: String
+  ): CheckoutNodeConnection
+  productSeo(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductSeoNodeConnection
+  customMetadata(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomProductMetadataNodeConnection
+  metadata(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductMetadataNodeConnection
+  collections(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CollectionNodeConnection
+  isVendor: Boolean
+  attributes: GenericScalar
+  quantity: Int
+  activeCheckoutCount: Int
+  variantCount: Int
+  skuCount(attributeKey: String, attributeValue: String): Int
+  shippingCheckoutRules(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    # Ordering
+    orderBy: String
+  ): ShippingCheckoutRuleNodeConnection
+  relatedProducts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    slug: String
+    stripeId: String
+    stripeId_Icontains: String
+    name: String
+    name_Icontains: String
+    description: String
+    description_Icontains: String
+    shortDescription: String
+    shortDescription_Icontains: String
+    gender: Float
+    unitOfWeight: Float
+    weight: Float
+    weight_Lte: Float
+    weight_Gte: Float
+    htsCode: String
+    htsCode_Icontains: String
+    unitOfDimensions: Float
+    unitOfDimensions_Icontains: Float
+    height: Float
+    height_Icontains: Float
+    width: Float
+    width_Icontains: Float
+    length: Float
+    length_Icontains: Float
+    downloadUrl: String
+    type: Float
+    archived: Boolean
+    customMetadata_Value: String
+    customMetadata_Value_Icontains: String
+    metadata_ProductCategoryTag1: String
+    metadata_ProductCategoryTag1_Icontains: String
+    metadata_ProductCategoryTag2: String
+    metadata_ProductCategoryTag2_Icontains: String
+    metadata_ProductCategoryTag3: String
+    metadata_ProductCategoryTag3_Icontains: String
+    metadata: String
+    filterParam: String
+    productChannel: String
+    collectionSlug: String
+    collectionId: String
+    checkouts: String
+    # Ordering
+    orderBy: String
+  ): RelatedProductNodeConnection
+}
+
+type ProductNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [ProductNodeEdge]!
+}
+
+# A Relay edge containing a `ProductNode` and its cursor.
+type ProductNodeEdge {
+  # The item at the end of the edge
+  node: ProductNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type ProductSeoNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Title of Product SEO
+  title: String!
+  description: String
+  # Product that this seo belongs to
+  product: ProductNode!
+  # Domain that this SEO belongs to
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type ProductSeoNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [ProductSeoNodeEdge]!
+}
+
+# A Relay edge containing a `ProductSeoNode` and its cursor.
+type ProductSeoNodeEdge {
+  # The item at the end of the edge
+  node: ProductSeoNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type ProfileNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime
+  modifiedOn: DateTime
+  slug: String
+  user: UserNode!
+  domain: DomainNode
+  # URL of the image
+  avatar: String
+  bio: String
+  label: String
+  name: String!
+  address1: String!
+  address2: String
+  city: String!
+  state: String
+  zipCode: String!
+  country: String!
+  email: String!
+  phoneNumber: String!
+  payoutType: Int
+  # User Id for connected Stripe account
+  stripeConnectUserId: String
+  paypalPayoutEmail: String
+  domainCommission: Int
+  shippingLabelSize: ShippingLabelSizeNode
+  addresses(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    profileId: ID
+    isBuyingAddress: Boolean
+    address1: String
+    address1_Icontains: String
+    address2: String
+    address2_Icontains: String
+    address2_Isnull: Boolean
+    city: String
+    city_Icontains: String
+    country: String
+    country_Icontains: String
+    state: String
+    state_Icontains: String
+    state_Isnull: Boolean
+    zipCode: String
+    zipCode_Icontains: String
+    # Ordering
+    orderBy: String
+  ): AddressNodeConnection
+  orderVendor(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): VendorOrderNodeConnection
+  customerDomainVendorViews(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomerDomainVendorViewNodeConnection
+  isVendor: Boolean
+  products(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    slug: String
+    stripeId: String
+    stripeId_Icontains: String
+    name: String
+    name_Icontains: String
+    description: String
+    description_Icontains: String
+    shortDescription: String
+    shortDescription_Icontains: String
+    gender: Float
+    unitOfWeight: Float
+    weight: Float
+    weight_Lte: Float
+    weight_Gte: Float
+    htsCode: String
+    htsCode_Icontains: String
+    unitOfDimensions: Float
+    unitOfDimensions_Icontains: Float
+    height: Float
+    height_Icontains: Float
+    width: Float
+    width_Icontains: Float
+    length: Float
+    length_Icontains: Float
+    downloadUrl: String
+    type: Float
+    archived: Boolean
+    customMetadata_Value: String
+    customMetadata_Value_Icontains: String
+    metadata_ProductCategoryTag1: String
+    metadata_ProductCategoryTag1_Icontains: String
+    metadata_ProductCategoryTag2: String
+    metadata_ProductCategoryTag2_Icontains: String
+    metadata_ProductCategoryTag3: String
+    metadata_ProductCategoryTag3_Icontains: String
+    metadata: String
+    filterParam: String
+    productChannel: String
+    collectionSlug: String
+    collectionId: String
+    checkouts: String
+    # Ordering
+    orderBy: String
+  ): ProductNodeConnection
+}
+
+type ProfileNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [ProfileNodeEdge]!
+}
+
+# A Relay edge containing a `ProfileNode` and its cursor.
+type ProfileNodeEdge {
+  # The item at the end of the edge
+  node: ProfileNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type PromotionNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  label: String!
+  stripeCouponCode: String!
+  startDatetime: DateTime!
+  endDatetime: DateTime
+  discountValue: Int!
+  discountType: Int!
+  # Domain that this promotion belongs to
+  domain: DomainNode
+  checkouts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CheckoutNodeConnection
+  isVendor: Boolean
+}
+
+type PromotionNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [PromotionNodeEdge]!
+}
+
+# A Relay edge containing a `PromotionNode` and its cursor.
+type PromotionNodeEdge {
+  # The item at the end of the edge
+  node: PromotionNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type Query {
+  addOns(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    name: String
+    name_Icontains: String
+    stripePlanId: String
+    stripePlanId_Icontains: String
+    # Ordering
+    orderBy: String
+  ): AddOnNodeConnection
+  addressesForCustomer(
+    customer: ID!
+    domain: ID!
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    profileId: ID
+    isBuyingAddress: Boolean
+    address1: String
+    address1_Icontains: String
+    address2: String
+    address2_Icontains: String
+    address2_Isnull: Boolean
+    city: String
+    city_Icontains: String
+    country: String
+    country_Icontains: String
+    state: String
+    state_Icontains: String
+    state_Isnull: Boolean
+    zipCode: String
+    zipCode_Icontains: String
+    # Ordering
+    orderBy: String
+  ): AddressNodeConnection
+  customer(customer: ID!): CustomerNode
+  customerViews(
+    domain: ID!
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    id_In: ID
+    customerSince: DateTime
+    customerSince_Gte: DateTime
+    customerSince_Lte: DateTime
+    lifetimeValue: Float
+    lifetimeValue_Gte: Float
+    lifetimeValue_Lte: Float
+    numberOfOrders: Float
+    numberOfOrders_Gte: Float
+    numberOfOrders_Lte: Float
+    numberOfProducts: Float
+    numberOfProducts_Gte: Float
+    numberOfProducts_Lte: Float
+    vendorId: ID
+    vendorId_Isnull: Boolean
+    # Ordering
+    orderBy: String
+  ): CustomerDomainVendorViewNodeConnection
+  customersThatAbandonedCheckout(
+    customers: [ID]!
+    domain: ID!
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    id_In: ID
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    customerId: ID
+    customerId_In: ID
+    domainId: ID
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    # Ordering
+    orderBy: String
+  ): CustomerAbandonedCheckoutEventNodeConnection
+  domains(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    modifiedOn: DateTime
+    id: ID
+    label: String
+    label_Icontains: String
+    freeShippingThreshold: Float
+    freeShippingThreshold_Gte: Float
+    freeShippingThreshold_Lte: Float
+    stripeCustomerId: String
+    stripeCustomerId_Icontains: String
+    stripeLinksSiId: String
+    stripeLinksSiId_Icontains: String
+    stripeConnectUserId: String
+    stripeConnectUserId_Icontains: String
+    stripeCustomerEmail: String
+    stripeCustomerEmail_Icontains: String
+    payoutType: Float
+    paypalPayoutEmail: String
+    paypalPayoutEmail_Icontains: String
+    # Ordering
+    orderBy: String
+  ): DomainNodeConnection
+  ordersForCustomer(
+    customer: ID!
+    domain: ID!
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    stripeId: String
+    stripeId_Icontains: String
+    createdOn: DateTime
+    customerEmail: String
+    customerEmail_Icontains: String
+    customerId: ID
+    customerId_Isnull: Boolean
+    customerName: String
+    customerName_Icontains: String
+    customerPhoneNumber: String
+    customerPhoneNumber_Icontains: String
+    discount: Float
+    discount_Lte: Float
+    discount_Gte: Float
+    domainId: ID
+    duty: Float
+    duty_Lte: Float
+    duty_Gte: Float
+    elliotCommission: Float
+    elliotCommission_Lte: Float
+    elliotCommission_Gte: Float
+    masterCommercialInvoice: String
+    masterCommercialInvoice_Icontains: String
+    masterShippingEta: String
+    masterShippingEta_Icontains: String
+    masterShippingLabelUrl: String
+    masterShippingLabelUrl_Icontains: String
+    masterShippingTrackingNumber: String
+    masterShippingTrackingNumber_Icontains: String
+    masterShippingTrackingUrl: String
+    masterShippingTrackingUrl_Icontains: String
+    modifiedOn: DateTime
+    orderStatus: Float
+    orderTotal: Float
+    orderTotal_Lte: Float
+    orderTotal_Gte: Float
+    paymentMethod: Float
+    paymentMethod_Icontains: Float
+    payoutDate: DateTime
+    payoutId: String
+    payoutId_Icontains: String
+    payoutId_Isnull: Boolean
+    payoutInvoiceUrl: String
+    payoutInvoiceUrl_Icontains: String
+    payoutType: Float
+    refundStatus: Boolean
+    shippingAddress1: String
+    shippingAddress1_Icontains: String
+    shippingAddress2: String
+    shippingAddress2_Icontains: String
+    shippingCity: String
+    shippingCity_Icontains: String
+    shippingCost: Float
+    shippingCost_Lte: Float
+    shippingCost_Gte: Float
+    shippingCountry: String
+    shippingCountry_Icontains: String
+    shippingMethod: String
+    shippingMethod_Icontains: String
+    shippingState: String
+    shippingState_Icontains: String
+    shippingZipCode: String
+    shippingZipCode_Icontains: String
+    billingAddress1: String
+    billingAddress1_Icontains: String
+    billingAddress2: String
+    billingAddress2_Icontains: String
+    billingCity: String
+    billingCity_Icontains: String
+    billingState: String
+    billingState_Icontains: String
+    billingZipCode: String
+    billingZipCode_Icontains: String
+    billingCountry: String
+    billingCountry_Icontains: String
+    stripeChargeFee: Float
+    stripeChargeFee_Lte: Float
+    stripeChargeFee_Gte: Float
+    tax: Float
+    tax_Lte: Float
+    tax_Gte: Float
+    vendorTotal: Float
+    vendorTotal_Lte: Float
+    vendorTotal_Gte: Float
+    # Ordering
+    orderBy: String
+  ): OrderNodeConnection
+  # The ID of the object
+  node(id: ID!): ElliotNode
+  seenCustomers(
+    customers: [ID]!
+    domain: ID!
+    user: ID!
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    id_In: ID
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    customerId: ID
+    customerId_In: ID
+    domainId: ID
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    userId: ID
+    # Ordering
+    orderBy: String
+  ): CustomerSeenEventNodeConnection
+  user: UserNode
+  customDomains(
+    first: Int
+    search: String
+    skip: Int
+    before: String
+    after: String
+    last: Int
+    fullDomain: String
+  ): BrandingNodeConnection
+  shippingLabelSizes: [ShippingLabelSizeNode]
+}
+
+type Refresh {
+  token: String
+  payload: GenericScalar
+}
+
+input RegisterDomainCompanyAddressInputObject {
+  address1: String!
+  address2: String
+  city: String!
+  state: String
+  zipCode: String!
+  country: String!
+}
+
+input RegisterDomainCompanyInputObject {
+  address: RegisterDomainCompanyAddressInputObject!
+  currency: String!
+  customerSupportNumber: String!
+  timeZone: String!
+}
+
+input RegisterDomainInputObject {
+  label: String!
+  company: RegisterDomainCompanyInputObject!
+}
+
+input RegisterFromInviteInput {
+  domainId: String!
+  user: RegisterUserInputObject!
+  invitationToken: String!
+  clientMutationId: String
+}
+
+type RegisterFromInvitePayload {
+  user: UserNode
+  clientMutationId: String
+}
+
+input RegisterInput {
+  user: RegisterUserInputObject!
+  domain: RegisterDomainInputObject!
+  clientMutationId: String
+}
+
+type RegisterPayload {
+  user: UserNode
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input RegisterUserInputObject {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  referralId: String
+}
+
+type RelatedProductNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  productChannel: String
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Stripe ID for product
+  stripeId: String!
+  # Name of product
+  name: String!
+  description: String
+  shortDescription: String
+  gender: Int
+  # Unit of weight for product
+  unitOfWeight: Int
+  # Weight of product
+  weight: Float
+  # Designates whether this product is taxable
+  isTaxable: Boolean!
+  htsCode: String
+  # Unit of dimensions for product
+  unitOfDimensions: Int
+  # Height of product
+  height: Float
+  # Width of product
+  width: Float
+  # Length of product
+  length: Float
+  slug: String
+  # Type of product (Downloads page or None Downloads )
+  type: Int!
+  downloadUrl: String
+  insuranceAmount: Int!
+  # Domain that this product belongs to
+  domain: DomainNode!
+  # Vendor that this product belongs to
+  vendor: UserNode
+  # Designates whether this product is archived and no longer used
+  archived: Boolean!
+  filterParam: GenericScalar
+  # Printify id for product
+  printifyId: String
+  # Printify store for sproductku
+  printifyStore: String
+  # Printify store for name for product
+  printifyStoreName: String
+  skus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    ids_In: String
+    stripeId: String
+    stripeId_Icontains: String
+    deactivated: DateTime
+    deactivated_Icontains: DateTime
+    sku: String
+    sku_Icontains: String
+    quantity: Float
+    quantity_Lte: Float
+    quantity_Gte: Float
+    purchaseLimit: Float
+    purchaseLimit_Lte: Float
+    purchaseLimit_Gte: Float
+    basePrice: Float
+    basePrice_Lte: Float
+    basePrice_Gte: Float
+    salePrice: Float
+    salePrice_Lte: Float
+    salePrice_Gte: Float
+    unitOfWeight: Float
+    unitOfWeight_Icontains: Float
+    weight: Float
+    weight_Lte: Float
+    weight_Gte: Float
+    unitOfDimensions: Float
+    unitOfDimensions_Icontains: Float
+    height: Float
+    height_Lte: Float
+    height_Gte: Float
+    width: Float
+    width_Lte: Float
+    width_Gte: Float
+    length: Float
+    length_Lte: Float
+    length_Gte: Float
+    # Ordering
+    orderBy: String
+  ): SkuNodeConnection
+  images(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    orderingPosition: Float
+    # Ordering
+    orderBy: String
+  ): ProductImageNodeConnection
+  checkoutProduct(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CheckoutNodeConnection
+  checkouts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    deactivated: DateTime
+    type: Float
+    name: String
+    name_Icontains: String
+    slug: String
+    slug_Icontains: String
+    archived: Boolean
+    # Ordering
+    orderBy: String
+  ): CheckoutNodeConnection
+  productSeo(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductSeoNodeConnection
+  customMetadata(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomProductMetadataNodeConnection
+  metadata(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductMetadataNodeConnection
+  collections(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CollectionNodeConnection
+  isVendor: Boolean
+  attributes: GenericScalar
+  quantity: Int
+  activeCheckoutCount: Int
+  variantCount: Int
+  skuCount(attributeKey: String, attributeValue: String): Int
+  shippingCheckoutRules(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    # Ordering
+    orderBy: String
+  ): ShippingCheckoutRuleNodeConnection
+}
+
+type RelatedProductNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [RelatedProductNodeEdge]!
+}
+
+# A Relay edge containing a `RelatedProductNode` and its cursor.
+type RelatedProductNodeEdge {
+  # The item at the end of the edge
+  node: RelatedProductNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input RemoveCorsWhitelistInput {
+  corsWhitelistId: String!
+  clientMutationId: String
+}
+
+type RemoveCorsWhitelistPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input RemoveFreeShippingThresholdInput {
+  domainId: String!
+  clientMutationId: String
+}
+
+type RemoveFreeShippingThresholdPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input RemovePromotionFromCheckoutInput {
+  domainId: String!
+  checkoutId: String!
+  clientMutationId: String
+}
+
+type RemovePromotionFromCheckoutPayload {
+  checkout: CheckoutNode
+  clientMutationId: String
+}
+
+input RemoveSkuInputObject {
+  id: String
+  stripeId: String
+}
+
+input RemoveUserFromDomainInput {
+  domainId: String!
+  id: String!
+  clientMutationId: String
+}
+
+type RemoveUserFromDomainPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input RenameAttributeKeyInput {
+  oldName: String!
+  newName: String!
+}
+
+input ResendInvitationInput {
+  email: String!
+  domainId: String!
+  clientMutationId: String
+}
+
+type ResendInvitationPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input ResetPasswordConfirmInput {
+  passwordResetToken: String!
+  password: String!
+  clientMutationId: String
+}
+
+type ResetPasswordConfirmPayload {
+  user: UserNode
+  clientMutationId: String
+}
+
+input ResetPasswordInput {
+  email: String!
+  clientMutationId: String
+}
+
+type ResetPasswordPayload {
+  user: UserNode
+  clientMutationId: String
+}
+
+type RevenuePlotObjectType {
+  period: String
+  revenue: Int
+}
+
+input SendOrdersExportEmailInput {
+  domainId: String!
+  orderIds: [String]!
+  exportAll: Boolean
+  orderStatus: Int
+  startDate: DateTimeScalar
+  endDate: DateTimeScalar
+  experienceIds: [String]
+  clientMutationId: String
+}
+
+type SendOrdersExportEmailPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input SeoInputObject {
+  title: String
+  name: String
+  description: String
+  favicon: String
+  logo: String
+  metaImage: String
+  twitterAccountId: String
+  twitterTitle: String
+  twitterDescription: String
+  twitterImage: String
+}
+
+input SetDefaultPaymentCardInput {
+  domainId: String!
+  cardId: String!
+  clientMutationId: String
+}
+
+type SetDefaultPaymentCardPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input SetDomainDelinquentInput {
+  id: String!
+  clientMutationId: String
+}
+
+type SetDomainDelinquentPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input SetDomainPaidInput {
+  id: String!
+  clientMutationId: String
+}
+
+type SetDomainPaidPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input ShipmentInput {
+  shippingLabelUrl: String!
+  shippingTrackingNumber: String!
+  shippingTrackingUrl: String!
+  shippingEta: String
+  shippingCommercialInvoice: String
+}
+
+type ShipmentNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  shipmentOrder: OrderNode!
+  vendorOrder: VendorOrderNode
+  shippingLabelUrl: String!
+  shippingTrackingNumber: String!
+  shippingTrackingUrl: String!
+  shippingCommercialInvoice: String
+  shippingEta: String
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type ShipmentNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [ShipmentNodeEdge]!
+}
+
+# A Relay edge containing a `ShipmentNode` and its cursor.
+type ShipmentNodeEdge {
+  # The item at the end of the edge
+  node: ShipmentNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type ShippingCheckoutRuleNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Custom package type that this shipping rule belongs to
+  customPackageType: CustomCheckoutPackageTypeNode
+  # Checkout that this custom package type belongs to
+  checkout: CheckoutNode!
+  # Domain that this custom checkout package type belongs to
+  domain: DomainNode!
+  isVendor: Boolean
+}
+
+type ShippingCheckoutRuleNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [ShippingCheckoutRuleNodeEdge]!
+}
+
+# A Relay edge containing a `ShippingCheckoutRuleNode` and its cursor.
+type ShippingCheckoutRuleNodeEdge {
+  # The item at the end of the edge
+  node: ShippingCheckoutRuleNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type ShippingLabelSizeNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  name: String!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  profileSet(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProfileNodeConnection
+  isVendor: Boolean
+}
+
+type ShippingLocationNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  name: String!
+  address1: String!
+  address2: String
+  city: String!
+  state: String
+  zipCode: String!
+  country: String!
+  email: String!
+  phoneNumber: String!
+  # Domain that this shipping location belongs to
+  domain: DomainNode!
+  companies(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CompanyNodeConnection
+  locationDomain(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): LocalPickupNodeConnection
+  checkouts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CheckoutNodeConnection
+  isVendor: Boolean
+}
+
+type ShippingLocationNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [ShippingLocationNodeEdge]!
+}
+
+# A Relay edge containing a `ShippingLocationNode` and its cursor.
+type ShippingLocationNodeEdge {
+  # The item at the end of the edge
+  node: ShippingLocationNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input SignupViabillInput {
+  domainId: String!
+  apiKey: String
+  apiSecret: String
+  email: String
+  password: String
+  clientMutationId: String
+}
+
+type SignupViabillPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input SkuInput {
+  stripeId: String!
+  quantity: Int!
+}
+
+type SkuNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Stripe ID for SKU
+  stripeId: String!
+  # Designates whether this SKU should be treated as deactivated
+  deactivated: DateTime
+  # Printify ID
+  printifyId: String
+  # SKU value
+  sku: String!
+  quantity: Int
+  purchaseLimit: Int
+  # Base price of SKU in smallest currency unit
+  basePrice: Int!
+  # Sale Price of SKU in smallest currency unit
+  salePrice: Int
+  # Unit of weight for SKU
+  unitOfWeight: Int
+  # Weight of SKU
+  weight: Float
+  # Unit of dimensions for SKU
+  unitOfDimensions: Int
+  # Height of SKU
+  height: Float
+  # Width of SKU
+  width: Float
+  # Length of SKU
+  length: Float
+  # Product that this SKU belongs to
+  product: ProductNode!
+  # Domain that this SKU belongs to
+  domain: DomainNode!
+  # Product Image url
+  url: String
+  image: String
+  orders(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    id: ID
+    stripeId: String
+    stripeId_Icontains: String
+    createdOn: DateTime
+    customerEmail: String
+    customerEmail_Icontains: String
+    customerId: ID
+    customerId_Isnull: Boolean
+    customerName: String
+    customerName_Icontains: String
+    customerPhoneNumber: String
+    customerPhoneNumber_Icontains: String
+    discount: Float
+    discount_Lte: Float
+    discount_Gte: Float
+    domainId: ID
+    duty: Float
+    duty_Lte: Float
+    duty_Gte: Float
+    elliotCommission: Float
+    elliotCommission_Lte: Float
+    elliotCommission_Gte: Float
+    masterCommercialInvoice: String
+    masterCommercialInvoice_Icontains: String
+    masterShippingEta: String
+    masterShippingEta_Icontains: String
+    masterShippingLabelUrl: String
+    masterShippingLabelUrl_Icontains: String
+    masterShippingTrackingNumber: String
+    masterShippingTrackingNumber_Icontains: String
+    masterShippingTrackingUrl: String
+    masterShippingTrackingUrl_Icontains: String
+    modifiedOn: DateTime
+    orderStatus: Float
+    orderTotal: Float
+    orderTotal_Lte: Float
+    orderTotal_Gte: Float
+    paymentMethod: Float
+    paymentMethod_Icontains: Float
+    payoutDate: DateTime
+    payoutId: String
+    payoutId_Icontains: String
+    payoutId_Isnull: Boolean
+    payoutInvoiceUrl: String
+    payoutInvoiceUrl_Icontains: String
+    payoutType: Float
+    refundStatus: Boolean
+    shippingAddress1: String
+    shippingAddress1_Icontains: String
+    shippingAddress2: String
+    shippingAddress2_Icontains: String
+    shippingCity: String
+    shippingCity_Icontains: String
+    shippingCost: Float
+    shippingCost_Lte: Float
+    shippingCost_Gte: Float
+    shippingCountry: String
+    shippingCountry_Icontains: String
+    shippingMethod: String
+    shippingMethod_Icontains: String
+    shippingState: String
+    shippingState_Icontains: String
+    shippingZipCode: String
+    shippingZipCode_Icontains: String
+    billingAddress1: String
+    billingAddress1_Icontains: String
+    billingAddress2: String
+    billingAddress2_Icontains: String
+    billingCity: String
+    billingCity_Icontains: String
+    billingState: String
+    billingState_Icontains: String
+    billingZipCode: String
+    billingZipCode_Icontains: String
+    billingCountry: String
+    billingCountry_Icontains: String
+    stripeChargeFee: Float
+    stripeChargeFee_Lte: Float
+    stripeChargeFee_Gte: Float
+    tax: Float
+    tax_Lte: Float
+    tax_Gte: Float
+    vendorTotal: Float
+    vendorTotal_Lte: Float
+    vendorTotal_Gte: Float
+    # Ordering
+    orderBy: String
+  ): OrderNodeConnection
+  vendorOrdersSkus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): VendorOrderNodeConnection
+  orderSkus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderSkuNodeConnection
+  isVendor: Boolean
+  attributes: GenericScalar
+}
+
+type SkuNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [SkuNodeEdge]!
+}
+
+# A Relay edge containing a `SkuNode` and its cursor.
+type SkuNodeEdge {
+  # The item at the end of the edge
+  node: SkuNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input SlideInputObject {
+  backgroundColor: String
+  image: String
+  title: String
+  subTitle: String
+  buttonLink: String
+  collectionId: String
+  heroText: String
+  isActive: Boolean
+  position: String
+  backgroundImage: String
+  navTitle: String
+  navSubTitle: String
+  defaultTitle: String
+  defaultSubTitle: String
+  classic2Image: String
+  classic2Title: String
+  classic2SubTitle: String
+  parallaxImage: String
+  parallaxTitle: String
+  parallaxSubTitle: String
+  parallaxSuperScript: String
+  parallaxButtonText: String
+  link: LinkInputObject
+}
+
+type SocialProfileNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  careerPortal: String!
+  snapchat: String!
+  facebook: String!
+  instagram: String!
+  youtube: String!
+  twitter: String!
+  pinterest: String!
+  tiktok: String!
+  productSharing: String!
+  isVendor: Boolean
+}
+
+type SocialProfileNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [SocialProfileNodeEdge]!
+}
+
+# A Relay edge containing a `SocialProfileNode` and its cursor.
+type SocialProfileNodeEdge {
+  # The item at the end of the edge
+  node: SocialProfileNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input SocialProviderInputObject {
+  facebook: String
+  instagram: String
+  snapchat: String
+  youtube: String
+  twitter: String
+  pinterest: String
+  tiktok: String
+  careerPortal: String
+}
+
+input StylesInputObject {
+  buttons: ButtonsInputObject
+  colors: ColorsInputObject
+  typography: TypographyInputObject
+  paragraph: GranularInputObject
+  heading1: GranularInputObject
+  heading2: GranularInputObject
+  heading3: GranularInputObject
+  heading4: GranularInputObject
+}
+
+input SyncPrintifyStoresInput {
+  domainId: String!
+  clientMutationId: String
+}
+
+type SyncPrintifyStoresPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+type TagsObjectType {
+  name: String
+  productIds: [String]
+}
+
+input TextInputObject {
+  color: String
+  transform: String
+  decoration: String
+}
+
+type TotalPerformanceMetricsObjectType {
+  ordersPlaced: [Int]
+  averageOrderRevenue: [Int]
+  totalRevenue: [Int]
+  views: [Int]
+}
+
+type TotalRevenuePlotObjectType {
+  period: String
+  revenue: Int
+}
+
+type TrackingMetricsObjectType {
+  averageTimeToPurchase: [String]
+}
+
+type TrafficDimensionBreakdownObjectType {
+  value: String
+  views: Int
+  purchases: Int
+}
+
+type TrafficDimensionObjectType {
+  key: String
+  breakdowns: [TrafficDimensionBreakdownObjectType]
+}
+
+input TransferDomainOwnershipInput {
+  domainId: String!
+  newOwnerId: String!
+  clientMutationId: String
+}
+
+type TransferDomainOwnershipPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input TypographyInputObject {
+  paragraph: FontInputObject
+  heading1: FontInputObject
+  heading2: FontInputObject
+  heading3: FontInputObject
+  heading4: FontInputObject
+}
+
+input UnarchiveProductsInput {
+  domainId: String!
+  productIds: [String]!
+  unArchiveAll: Boolean
+  clientMutationId: String
+}
+
+type UnarchiveProductsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input UpdateAttributesInput {
+  domainId: String!
+  productId: String
+  stripeProductId: String
+  renames: [RenameAttributeKeyInput]
+  additions: [AddAttributeInput]
+  clientMutationId: String
+}
+
+type UpdateAttributesPayload {
+  product: ProductNode
+  clientMutationId: String
+}
+
+input UpdateBrandingInput {
+  domainId: String!
+  primaryColor: String
+  secondaryColor: String
+  tertiaryColor: String
+  customDomain: String
+  homeDomain: String
+  buttonPrimaryColor: String
+  buttonBorderColor: String
+  buttonTextColor: String
+  font: String
+  boxShadow: Int
+  borderRadius: Int
+  logo: Upload
+  titleFont: String
+  bodyBackgroundColor: String
+  menuTheme: Int
+  menuBackgroundColor: String
+  menuTextColor: String
+  addressRecord: Boolean
+  checkoutId: String
+  iconColor: String
+  genderTag: Int
+  clientMutationId: String
+}
+
+type UpdateBrandingPayload {
+  brand: BrandingNode
+  clientMutationId: String
+}
+
+input UpdateCheckoutNameInput {
+  domainId: String!
+  id: String!
+  name: String!
+  slug: String
+  clientMutationId: String
+}
+
+type UpdateCheckoutNamePayload {
+  checkout: CheckoutNode
+  clientMutationId: String
+}
+
+input UpdateCheckoutProductInput {
+  domainId: String!
+  checkoutIds: [String]!
+  productId: String!
+  clientMutationId: String
+}
+
+type UpdateCheckoutProductPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input UpdateCompanyInput {
+  domainId: String!
+  name: String
+  email: String
+  customerSupportNumber: String
+  about: String
+  returnPolicy: String
+  sizeGuide: String
+  currency: String
+  timeZone: String
+  homePage: String
+  privacyPolicy: String
+  hideKeyInfoTitle: String
+  termsAndConditions: String
+  vendorSignup: String
+  faqs: String
+  clientMutationId: String
+}
+
+type UpdateCompanyPayload {
+  company: CompanyNode
+  clientMutationId: String
+}
+
+input UpdateCustomerSupportInput {
+  domainId: String!
+  body: String
+  active: Boolean
+  clientMutationId: String
+}
+
+type UpdateCustomerSupportPayload {
+  customerSupport: CustomerSupportNode
+  clientMutationId: String
+}
+
+input UpdateDomainInput {
+  id: String!
+  label: String
+  freeShippingThreshold: Int
+  freeShippingThresholdTarget: Int
+  payoutType: Int
+  paypalPayoutEmail: String
+  clientMutationId: String
+}
+
+type UpdateDomainPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input UpdateExperienceProductInput {
+  experienceIds: [String]
+  domainId: String!
+  productId: [String]
+  removedExperienceIds: [String]
+  clientMutationId: String
+}
+
+type UpdateExperienceProductPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input UpdateFlatRateInputObject {
+  id: String!
+  label: String
+  value: Int
+}
+
+input UpdateFlatRateShippingOptionInput {
+  domainId: String!
+  flatRateShippingOptions: [UpdateFlatRateInputObject]!
+  clientMutationId: String
+}
+
+type UpdateFlatRateShippingOptionPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input UpdateGeneralInformationInput {
+  domainId: String!
+  title: String
+  description: String
+  favicon: Upload
+  googleTag: String
+  clientMutationId: String
+}
+
+type UpdateGeneralInformationPayload {
+  generalInformation: GeneralInformationNode
+  clientMutationId: String
+}
+
+input UpdateLocalDeliveryInput {
+  domainId: String!
+  localDeliveryId: String!
+  active: Boolean!
+  deliveryWindow: String!
+  deliveryCost: Float!
+  deliveryRadius: Int!
+  clientMutationId: String
+}
+
+type UpdateLocalDeliveryPayload {
+  localDelivery: LocalDeliveryNode
+  clientMutationId: String
+}
+
+input UpdateLocalPickupInput {
+  domainId: String!
+  localPickupId: String!
+  active: Boolean!
+  locationId: String!
+  pickupWindow: Int!
+  clientMutationId: String
+}
+
+type UpdateLocalPickupPayload {
+  localPickup: LocalPickupNode
+  clientMutationId: String
+}
+
+input UpdateOrderStatusInput {
+  domainId: String!
+  id: String!
+  orderStatus: Int!
+  clientMutationId: String
+}
+
+type UpdateOrderStatusPayload {
+  order: OrderNode
+  clientMutationId: String
+}
+
+input UpdateProductAttributesInput {
+  domainId: String!
+  productId: String
+  stripeProductId: String
+  attributes: [AttributesInputObject]!
+  clientMutationId: String
+}
+
+type UpdateProductAttributesPayload {
+  product: ProductNode
+  clientMutationId: String
+}
+
+input UpdateProductInput {
+  domainId: String!
+  id: String
+  stripeId: String
+  name: String
+  description: String
+  shortDescription: String
+  gender: Int
+  htsCode: String
+  unitOfWeight: Int
+  weight: Decimal
+  unitOfDimensions: Int
+  height: Decimal
+  width: Decimal
+  length: Decimal
+  type: Int
+  downloadUrl: String
+  vendorId: String
+  filterParam: String
+  insuranceAmount: Int
+  archiveAll: Boolean
+  unArchiveAll: Boolean
+  clientMutationId: String
+}
+
+type UpdateProductPayload {
+  product: ProductNode
+  clientMutationId: String
+}
+
+input UpdateShippingLocationInput {
+  domainId: String!
+  shippingLocations: [UpdateShippingLocationInputObject]!
+  clientMutationId: String
+}
+
+input UpdateShippingLocationInputObject {
+  id: String!
+  name: String
+  address1: String
+  address2: String
+  city: String
+  state: String
+  zipCode: String
+  country: String
+  email: String
+  phoneNumber: String
+}
+
+type UpdateShippingLocationPayload {
+  domain: DomainNode
+  clientMutationId: String
+}
+
+input UpdateSocialProfileInput {
+  domainId: String!
+  snapchat: String
+  facebook: String
+  twitter: String
+  instagram: String
+  youtube: String
+  pinterest: String
+  tiktok: String
+  careerPortal: String
+  productSharing: String
+  clientMutationId: String
+}
+
+type UpdateSocialProfilePayload {
+  socialProfile: SocialProfileNode
+  clientMutationId: String
+}
+
+input UpdateStoreFrontProductsInput {
+  domainId: String!
+  experienceIds: [String]!
+  productId: String!
+  clientMutationId: String
+}
+
+type UpdateStoreFrontProductsPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+input UpdateUserInput {
+  domainId: String!
+  id: String!
+  firstName: String
+  lastName: String
+  email: String
+  clientMutationId: String
+}
+
+type UpdateUserPayload {
+  user: UserNode
+  token: String
+  clientMutationId: String
+}
+
+# Create scalar that
+# ignores normal serialization/deserialization, since
+# that will be handled by the multipart request spec
+scalar Upload
+
+input UploadImageInput {
+  domainId: String!
+  imageUrl: Upload!
+  clientMutationId: String
+}
+
+type UploadImagePayload {
+  image: ImageUploadNode
+  clientMutationId: String
+}
+
+input UploadProductImageInput {
+  domainId: String!
+  productId: String!
+  images: [ProductImageInputObject]!
+  clientMutationId: String
+}
+
+type UploadProductImagePayload {
+  product: ProductNode
+  clientMutationId: String
+}
+
+input UploadSkuImageInput {
+  domainId: String!
+  skuId: String!
+  image: Upload
+  url: String!
+  clientMutationId: String
+}
+
+type UploadSkuImagePayload {
+  sku: SkuNode
+  clientMutationId: String
+}
+
+type UserNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  password: String!
+  lastLogin: DateTime
+  # Designates that this user has all permissions without explicitly assigning them.
+  isSuperuser: Boolean!
+  createdOn: DateTime
+  modifiedOn: DateTime
+  # Designates whether this user should be treated as deactivated
+  deactivated: DateTime
+  firstName: String
+  lastName: String
+  email: String!
+  phoneNumber: String
+  # Designates whether the user can log into Django admin site
+  isStaff: Boolean!
+  passwordResetToken: String
+  invitationToken: String
+  referralId: String
+  domains(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    modifiedOn: DateTime
+    id: ID
+    label: String
+    label_Icontains: String
+    freeShippingThreshold: Float
+    freeShippingThreshold_Gte: Float
+    freeShippingThreshold_Lte: Float
+    stripeCustomerId: String
+    stripeCustomerId_Icontains: String
+    stripeLinksSiId: String
+    stripeLinksSiId_Icontains: String
+    stripeConnectUserId: String
+    stripeConnectUserId_Icontains: String
+    stripeCustomerEmail: String
+    stripeCustomerEmail_Icontains: String
+    payoutType: Float
+    paypalPayoutEmail: String
+    paypalPayoutEmail_Icontains: String
+    # Ordering
+    orderBy: String
+  ): DomainNodeConnection
+  vendors(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): DomainNodeConnection
+  ownedDomains(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): DomainNodeConnection
+  profile(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    bio: String
+    bio_Icontains: String
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    domainId: ID
+    email: String
+    id: ID
+    slug: String
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    payoutType: Float
+    phoneNumber: String
+    phoneNumber_Icontains: String
+    # Ordering
+    orderBy: String
+  ): ProfileNodeConnection
+  productVendor(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ProductNodeConnection
+  customerSeenEvents(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): CustomerSeenEventNodeConnection
+  isVendor: Boolean
+  intercomHmac: String
+  products: [ProductNode]
+}
+
+type UserNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [UserNodeEdge]!
+}
+
+# A Relay edge containing a `UserNode` and its cursor.
+type UserNodeEdge {
+  # The item at the end of the edge
+  node: UserNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input VendorOrderInput {
+  tax: Int!
+  duty: Int
+  shippingCost: Int
+  vendorTotal: Int!
+  subTotal: Int!
+  orderTotal: Int!
+  vendorId: String!
+  payoutType: Int!
+  masterShippingLabelUrl: String
+  masterShippingTrackingNumber: String
+  masterShippingTrackingUrl: String
+  masterShippingEta: String
+  masterCommercialInvoice: String
+  shippingLabelUrl: String
+  shipments: [ShipmentInput]
+  packingSlipUrl: String
+  payoutDate: DateTimeScalar
+  payoutId: String
+  payoutInvoiceUrl: String
+  commission: Int
+  skus: [SkuInput]!
+  shippingMethod: String
+}
+
+type VendorOrderNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # Tax for vendor order
+  tax: Int!
+  # Duty for international vendor orders
+  duty: Int!
+  # Shipping cost for vendor order
+  shippingCost: Int
+  discount: Int
+  # Total order amount
+  orderTotal: Int!
+  # Total order amount
+  subTotal: Int
+  # Total amount that vendor receives
+  vendorTotal: Int!
+  stripeChargeFee: Int
+  payoutType: Int!
+  masterShippingLabelUrl: String
+  packingSlipUrl: String
+  masterShippingTrackingNumber: String
+  masterShippingTrackingUrl: String
+  masterShippingEta: String
+  masterCommercialInvoice: String
+  payoutDate: DateTime
+  payoutId: String
+  payoutInvoiceUrl: String
+  shippingMethod: String
+  commission: Int
+  orderStatus: Int!
+  skus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    ids_In: String
+    stripeId: String
+    stripeId_Icontains: String
+    deactivated: DateTime
+    deactivated_Icontains: DateTime
+    sku: String
+    sku_Icontains: String
+    quantity: Float
+    quantity_Lte: Float
+    quantity_Gte: Float
+    purchaseLimit: Float
+    purchaseLimit_Lte: Float
+    purchaseLimit_Gte: Float
+    basePrice: Float
+    basePrice_Lte: Float
+    basePrice_Gte: Float
+    salePrice: Float
+    salePrice_Lte: Float
+    salePrice_Gte: Float
+    unitOfWeight: Float
+    unitOfWeight_Icontains: Float
+    weight: Float
+    weight_Lte: Float
+    weight_Gte: Float
+    unitOfDimensions: Float
+    unitOfDimensions_Icontains: Float
+    height: Float
+    height_Lte: Float
+    height_Gte: Float
+    width: Float
+    width_Lte: Float
+    width_Gte: Float
+    length: Float
+    length_Lte: Float
+    length_Gte: Float
+    # Ordering
+    orderBy: String
+  ): SkuNodeConnection
+  vendor: ProfileNode!
+  order: OrderNode!
+  domain: DomainNode!
+  localPickupId: String
+  localDeliveryId: String
+  vendorOrderSkus(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): OrderSkuNodeConnection
+  vendorShipments(
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): ShipmentNodeConnection
+  isVendor: Boolean
+  items: [OrderSkuNode]
+  checkouts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    deactivated: DateTime
+    type: Float
+    name: String
+    name_Icontains: String
+    slug: String
+    slug_Icontains: String
+    archived: Boolean
+    # Ordering
+    orderBy: String
+  ): CheckoutNodeConnection
+  shipments: [ShipmentNode]
+  orderCheckouts(
+    before: String
+    after: String
+    first: Int
+    last: Int
+    createdOn: DateTime
+    createdOn_Lte: DateTime
+    createdOn_Gte: DateTime
+    modifiedOn: DateTime
+    modifiedOn_Lte: DateTime
+    modifiedOn_Gte: DateTime
+    id: ID
+    # Ordering
+    orderBy: String
+  ): OrderCheckoutNodeConnection
+  belongsToDomainOwner: Boolean
+}
+
+type VendorOrderNodeConnection {
+  # Pagination data for this connection.
+  pageInfo: PageInfo!
+  # Contains the nodes in this connection.
+  edges: [VendorOrderNodeEdge]!
+}
+
+# A Relay edge containing a `VendorOrderNode` and its cursor.
+type VendorOrderNodeEdge {
+  # The item at the end of the edge
+  node: VendorOrderNode
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input VendorsInputObject {
+  email: String!
+  lastName: String!
+  firstName: String!
+  domainCommission: Int!
+}
+
+type Verify {
+  payload: GenericScalar
+}
+
+type ViaBillNode implements ElliotNode {
+  # The ID of the object.
+  id: ID!
+  createdOn: DateTime!
+  modifiedOn: DateTime!
+  # viabill key
+  key: String
+  # viabill secret
+  secret: String
+  # myviabill url
+  url: String
+  # viabill apikey
+  apiKey: String
+  # viabill apikey
+  script: String
+  isVendor: Boolean
+}

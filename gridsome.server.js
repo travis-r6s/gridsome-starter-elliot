@@ -1,16 +1,67 @@
-// Server API makes it possible to hook into various parts of Gridsome
-// on server-side and add custom data to the GraphQL data layer.
-// Learn more: https://gridsome.org/docs/server-api/
+const [ELLIOT_DOMAIN_ID, ELLIOT_STORE_FRONT_ID, _, ELLIOT_API_KEY] = process.env.ELLIOT_ENV.split('|')
+const { setContext } = require('apollo-link-context')
+const { HttpLink } = require('apollo-link-http')
+const fetch = require('node-fetch')
+const fs = require('fs')
+const {
+  makeRemoteExecutableSchema,
+  transformSchema,
+  RenameTypes
+} = require('graphql-tools')
 
-// Changes here require a server restart.
-// To restart press CTRL + C in terminal and run `gridsome develop`
+const {
+  NamespaceUnderFieldTransform,
+  StripNonQueryTransform
+} = require('@gridsome/source-graphql/transforms')
 
 module.exports = function (api) {
-  api.loadSource(({ addCollection }) => {
-    // Use the Data Store API here: https://gridsome.org/docs/data-store-api/
+  api.createSchema(async ({ addSchema }) => {
+    const typeName = 'Elliot'
+    const fieldName = 'elliot'
+    const ELLIOT_GRAPHQL_ENDPOINT = 'https://admin.elliot.store/api'
+    const headers = { 'Content-Type': 'application/json', KEY: `KEY ${ELLIOT_API_KEY}` }
+
+    const http = new HttpLink({ uri: ELLIOT_GRAPHQL_ENDPOINT, fetch })
+    const link = setContext(() => ({ headers })).concat(http)
+
+    const remoteSchema = makeRemoteExecutableSchema({
+      schema: fs.readFileSync('./schema.graphql', 'utf8'),
+      link
+    })
+    const namespacedSchema = await transformSchema(remoteSchema, [
+      new StripNonQueryTransform(),
+      new RenameTypes(name => `${typeName}_${name}`),
+      new NamespaceUnderFieldTransform(typeName, fieldName)
+    ])
+
+    addSchema(namespacedSchema)
   })
 
-  api.createPages(({ createPage }) => {
-    // Use the Pages API here: https://gridsome.org/docs/pages-api/
+  api.createPages(async ({ createPage, graphql }) => {
+    const variables = { id: ELLIOT_STORE_FRONT_ID }
+    const { data } = await graphql(`query checkout($id: ID!) {
+      elliot {
+        node(id: $id) {
+          ... on Elliot_CheckoutNode {
+            products {
+              edges {
+                node {
+                  id
+                  slug
+                }
+              }
+            }
+          }
+        }
+      }
+    }`, variables)
+
+    for (const { node: product } of data.elliot.node.products.edges) {
+      createPage({
+        path: `/product/${product.slug}`,
+        component: './src/templates/Product.vue',
+        context: { id: product.id, slug: product.slug }
+      })
+    }
   })
 }
