@@ -1,0 +1,17 @@
+// Generic Styling
+
+// Resets
+body {
+  margin: 0;
+  padding: 0;
+  a {
+    text-decoration: none;
+  }
+}
+
+// Grid Helper
+.grid {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
