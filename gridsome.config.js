@@ -1,10 +1,19 @@
-// This is where project configuration and plugin options are located.
-// Learn more: https://gridsome.org/docs/config
-
-// Changes here require a server restart.
-// To restart press CTRL + C in terminal and run `gridsome develop`
+const [ELLIOT_DOMAIN_ID, ELLIOT_STORE_FRONT_ID, ELLIOT_STORE_FRONT_NAME, ELLIOT_API_KEY] = process.env.ELLIOT_ENV.split('|')
 
 module.exports = {
-  siteName: 'Gridsome',
-  plugins: []
+  siteName: 'Gridsome + Elliot 😍',
+  plugins: [
+    {
+      use: '@gridsome/source-graphql',
+      options: {
+        url: 'https://admin.elliot.store/api',
+        fieldName: 'elliot',
+        typeName: 'Elliot',
+        headers: {
+          'Content-Type': 'application/json',
+          KEY: `KEY ${ELLIOT_API_KEY}`
+        }
+      }
+    }
+  ]
 }
