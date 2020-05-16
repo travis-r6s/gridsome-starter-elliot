@@ -4,7 +4,7 @@
       title-heading="Your Cart"
       :level-heading="1" />
     <div class="container">
-      <SfTable>
+      <SfTable v-if="cartTotalItems">
         <SfTableHeading>
           <SfTableHeader
             v-for="(header, i) in tableHeaders"
@@ -48,13 +48,37 @@
           </SfTableData>
         </SfTableRow>
       </SfTable>
+      <div v-else>
+        <h3
+          class="sf-heading"
+          :style="{textAlign: 'center'}">
+          Nothing here, yet. Why not browse our collections?
+        </h3>
+        <br>
+        <SfBreadcrumbs :breadcrumbs="collections">
+          <template #link="{ breadcrumb }">
+            <g-link
+              class="sf-link"
+              :to="breadcrumb.link">
+              {{ breadcrumb.text }}
+            </g-link>
+          </template>
+          <template #current="{ breadcrumb }">
+            <g-link
+              class="sf-link"
+              :to="breadcrumb.link">
+              {{ breadcrumb.text }}
+            </g-link>
+          </template>
+        </SfBreadcrumbs>
+      </div>
     </div>
   </Layout>
 </template>
 
 <script>
 // Components
-import { SfSection, SfTable, SfButton, SfImage, SfQuantitySelector } from '@storefront-ui/vue'
+import { SfSection, SfTable, SfButton, SfImage, SfQuantitySelector, SfBreadcrumbs } from '@storefront-ui/vue'
 
 export default {
   name: 'Cart',
@@ -63,7 +87,7 @@ export default {
     if (!totalItems) return { title: `Your cart is... empty? 😥` }
     return { title: `${totalItems} items - ${this.cartTotal}` }
   },
-  components: { SfSection, SfTable, SfButton, SfImage, SfQuantitySelector },
+  components: { SfSection, SfTable, SfButton, SfImage, SfQuantitySelector, SfBreadcrumbs },
   data: () => ({
     tableHeaders: [
       '',
@@ -77,10 +101,8 @@ export default {
   computed: {
     cartTotalItems () { return this.$store.getters.cartTotalItems },
     cartTotal () { return this.$store.getters.cartTotal },
-    cartItems () {
-      // const items = this.$store.state.cart
-      return this.$store.state.cart
-    }
+    cartItems () { return this.$store.state.cart },
+    collections () { return this.$page.elliot.node.collections.edges.map(({ node }) => ({ text: node.name, link: `/collection/${node.slug}` })) }
   },
   methods: {
     updateItemQuantity (quantity) {
@@ -92,3 +114,31 @@ export default {
   }
 }
 </script>
+
+<page-query>
+query {
+  elliot {
+    node (id: "RG9tYWluTm9kZTo0OTY") {
+      ...on Elliot_DomainNode {
+        collections {
+          edges {
+            node {
+              id
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</page-query>
+
+<style lang="scss">
+.sf-breadcrumbs {
+  .sf-breadcrumbs__list {
+    justify-content: center;
+  }
+}
+</style>
