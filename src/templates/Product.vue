@@ -46,16 +46,16 @@
       <SfDivider />
       <div class="grid related-products">
         <SfProductCard
-          v-for="product in relatedProducts"
-          :key="product.id"
-          :image="product.image"
+          v-for="rProduct in relatedProducts"
+          :key="rProduct.id"
+          :image="rProduct.image"
           :image-width="200"
           :image-height="200"
-          :title="product.name"
+          :title="rProduct.name"
           :link="`/product/${product.slug}`"
           link-tag="g-link"
-          :regular-price="product.basePrice | currency"
-          :special-price="product.salePrice | currency"
+          :regular-price="rProduct.basePrice | currency"
+          :special-price="rProduct.salePrice | currency"
           :is-on-wishlist="false"
           @click:wishlist="alert('@click:wishlist')" />
       </div>
