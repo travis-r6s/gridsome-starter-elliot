@@ -239,7 +239,7 @@ query Product ($id: ID!) {
 
 <style lang="scss" scoped>
 .product {
-  margin-bottom: 4rem;
+  margin: 4rem 0;
 }
 .related-products {
   margin-top: 4rem;
