@@ -44,7 +44,7 @@ export default function (Vue, { appOptions }) {
         else cart.push(newItem)
 
         const updatedCart = cart.map(item => {
-          const total = Dinero({ amount: item.salePrice }).multiply(item.quantity)
+          const total = Dinero({ amount: item.salePrice || item.basePrice }).multiply(item.quantity).getAmount()
           return { ...item, total }
         })
 
@@ -55,7 +55,7 @@ export default function (Vue, { appOptions }) {
         const item = cart.find(item => item.id === id)
 
         item.quantity = quantity
-        item.total = Dinero({ amount: item.salePrice }).multiply(item.quantity)
+        item.total = Dinero({ amount: item.salePrice || item.basePrice }).multiply(item.quantity).getAmount()
 
         commit('updateCart', cart)
       },
@@ -67,7 +67,7 @@ export default function (Vue, { appOptions }) {
       }
     },
     getters: {
-      cartTotal: ({ cart }) => cart.reduce((total, item) => total.add(Dinero({ amount: item.salePrice }).multiply(item.quantity)), Dinero({ amount: 0 })),
+      cartTotal: ({ cart }) => cart.reduce((total, item) => total.add(item.total), Dinero({ amount: 0, currency: 'GBP' })).toFormat(),
       cartTotalItems: ({ cart }) => cart.length,
       isItemInCart: ({ cart }) => id => !!cart.find(item => item.id === id)
     }
