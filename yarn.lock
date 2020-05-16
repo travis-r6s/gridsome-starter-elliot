@@ -5621,6 +5621,11 @@ gray-matter@^4.0.1:
     section-matter "^1.0.0"
     strip-bom-string "^1.0.0"
 
+gridsome-plugin-image-cdn@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/gridsome-plugin-image-cdn/-/gridsome-plugin-image-cdn-0.1.6.tgz#c21aa81e40f5511fbdbba9efec44484e5bd2affc"
+  integrity sha512-bWwJQ5OtmPYgHaCy5owqLd78kepvYpabbvqPdiW0cNAfPH0kmHbmW2e6l2SMwQ/sTidNd4tgp67oze+75RIVlw==
+
 gridsome@^0.7.0:
   version "0.7.14"
   resolved "https://registry.yarnpkg.com/gridsome/-/gridsome-0.7.14.tgz#d919f62bd9f0a500ded4599e70b63cb09cfa68ad"
