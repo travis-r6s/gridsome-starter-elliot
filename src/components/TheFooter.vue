@@ -19,15 +19,10 @@
 
 <script>
 // Components
-import { SfFooter, SfList, SfImage, SfMenuItem } from '@storefront-ui/vue'
+import { SfFooter, SfList, SfMenuItem } from '@storefront-ui/vue'
 export default {
   name: 'TheFooter',
-  components: {
-    SfFooter,
-    SfList,
-    SfImage,
-    SfMenuItem
-  },
+  components: { SfFooter, SfList, SfMenuItem },
   data: () => ({
     isMobile: false,
     columns: [
