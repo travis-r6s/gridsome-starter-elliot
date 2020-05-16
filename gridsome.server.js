@@ -51,6 +51,14 @@ module.exports = function (api) {
                 }
               }
             }
+            collections {
+              edges {
+                node {
+                  id
+                  slug
+                }
+              }
+            }
           }
         }
       }
@@ -60,7 +68,15 @@ module.exports = function (api) {
       createPage({
         path: `/product/${product.slug}`,
         component: './src/templates/Product.vue',
-        context: { id: product.id, slug: product.slug }
+        context: product
+      })
+    }
+
+    for (const { node: collection } of data.elliot.node.collections.edges) {
+      createPage( {
+        path: `/collection/${ collection.slug }`,
+        component: './src/templates/Collection.vue',
+        context: collection
       })
     }
   })
