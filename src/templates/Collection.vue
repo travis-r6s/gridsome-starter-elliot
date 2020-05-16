@@ -33,6 +33,9 @@ import { SfSection, SfProductCard } from '@storefront-ui/vue'
 
 export default {
   name: 'Collection',
+  metaInfo () {
+    return { title: this.collection.name }
+  },
   components: { SfSection, SfProductCard },
   computed: {
     collection () { return this.$page.elliot.collection },
