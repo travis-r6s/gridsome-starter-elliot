@@ -70,7 +70,6 @@ query {
 <style lang="scss">
 .sf-header {
   z-index: 10;
-  --_header-height: 100px;
   --search-bar-border-width: 0 0 1px 0;
   --search-bar-border-color: var(--c-dark-variant);
   .sf-link {
