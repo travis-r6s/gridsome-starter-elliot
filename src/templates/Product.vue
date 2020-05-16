@@ -52,7 +52,7 @@
           :image-width="200"
           :image-height="200"
           :title="rProduct.name"
-          :link="`/product/${product.slug}`"
+          :link="`/product/${rProduct.slug}`"
           link-tag="g-link"
           :regular-price="rProduct.basePrice | currency"
           :special-price="rProduct.salePrice | currency"
