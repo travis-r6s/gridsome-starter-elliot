@@ -64,10 +64,10 @@
 
 <script>
 // Components
-import { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider } from '@storefront-ui/vue'
+import { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider, SfNotification } from '@storefront-ui/vue'
 export default {
   name: 'Product',
-  components: { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider },
+  components: { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider, SfNotification },
   data: () => ({ selectedOptions: {}, quantity: 1 }),
   computed: {
     product () { return this.$page.elliot.product },
@@ -117,7 +117,9 @@ export default {
     },
     addToCart () {
       const variant = this.currentVariant
-      console.log(variant)
+      const quantity = this.quantity
+
+      this.$store.dispatch('addToCart', { ...variant, quantity })
     }
   }
 }

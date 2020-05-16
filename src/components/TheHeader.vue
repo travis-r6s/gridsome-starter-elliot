@@ -1,7 +1,7 @@
 <template>
   <SfHeader
     cart-icon="empty_cart"
-    cart-items-qty="1"
+    :cart-items-qty="cartTotalItems"
     @click:cart="alert('@click:cart')"
     @click:wishlist="alert('@click:wishlist')">
     <template #logo>
@@ -48,7 +48,8 @@ export default {
   name: 'TheHeader',
   components: { SfHeader, SfSearch },
   computed: {
-    metadata () { return this.$static.metadata }
+    metadata () { return this.$static.metadata },
+    cartTotalItems () { return this.$store.getters.cartTotalItems.toString() }
   },
   methods: {
     getImage ({ mobile, desktop }) {
