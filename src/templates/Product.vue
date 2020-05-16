@@ -131,7 +131,7 @@ export default {
       const variant = this.currentVariant
       const quantity = this.quantity
 
-      this.$store.dispatch('addToCart', { ...variant, quantity })
+      this.$store.dispatch('addToCart', { ...variant, quantity, name: this.product.name, image: this.product.images[ 0 ] })
       this.$notify({
         group: 'product',
         type: 'success',
