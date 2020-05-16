@@ -53,7 +53,7 @@ export default function (Vue, { appOptions }) {
 
         commit('updateCart', updatedCart)
       },
-      updateItemQty: ({ state, commit }, { id, quantity }) => {
+      updateItemQuantity: ({ state, commit }, { id, quantity }) => {
         const cart = state.cart
         const item = cart.find(item => item.id === id)
 
