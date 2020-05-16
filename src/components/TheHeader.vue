@@ -3,7 +3,7 @@
     cart-icon="empty_cart"
     :cart-items-qty="cartTotalItems"
     account-icon=""
-    @click:cart="alert('@click:cart')"
+    @click:cart="$router.push('/cart')"
     @click:wishlist="alert('@click:wishlist')">
     <template #logo>
       <g-link to="/">
