@@ -17,9 +17,8 @@ export default {
     images () {
       console.log(this.product.images)
       return this.product.images.edges.map(({ node }) => {
-        console.log(node)
-        const image = `https://storage.googleapis.com/elliot-images-us/${node.url}`
-        return { desktop: { url: image }, mobile: { url: image } }
+        const { mobile, desktop } = node
+        return { desktop: { url: desktop }, mobile: { url: mobile } }
       })
     }
   }
@@ -58,7 +57,8 @@ query Product ($id: ID!) {
           edges {
             node {
               id
-              url
+              mobile: url(height: 200, width: 200)
+              desktop: url(height: 400, width: 400)
             }
           }
         }

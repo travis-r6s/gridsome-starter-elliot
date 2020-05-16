@@ -38,11 +38,11 @@ module.exports = function (api) {
   })
 
   api.createPages(async ({ createPage, graphql }) => {
-    const variables = { id: ELLIOT_STORE_FRONT_ID }
-    const { data } = await graphql(`query checkout($id: ID!) {
+    const variables = { id: ELLIOT_DOMAIN_ID }
+    const { data } = await graphql(`query domain ($id: ID!) {
       elliot {
         node(id: $id) {
-          ... on Elliot_CheckoutNode {
+          ... on Elliot_DomainNode {
             products {
               edges {
                 node {
