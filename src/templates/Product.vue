@@ -68,6 +68,13 @@
 import { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider } from '@storefront-ui/vue'
 export default {
   name: 'Product',
+  metaInfo () {
+    const [{ node: { title, description } }] = this.product.productSeo.edges
+    return {
+      title: title,
+      meta: [{ name: 'description', content: description }]
+    }
+  },
   components: { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider },
   data: () => ({ selectedOptions: {}, quantity: 1 }),
   computed: {
