@@ -54,6 +54,7 @@ export default {
     }
   },
   methods: {
+    isItemInCart (id) { return this.$store.getters.isItemInCart(id) },
     addProductToCart (product) {
       this.$store.dispatch('addToCart', { ...product, quantity: 1 })
       this.$notify({
@@ -62,8 +63,7 @@ export default {
         title: 'Added product to cart',
         text: `Just added 1 x ${product.name} to cart`
       })
-    },
-    isItemInCart (id) { return this.$store.getters.isItemInCart(id) }
+    }
   }
 }
 </script>
