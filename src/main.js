@@ -67,8 +67,9 @@ export default function (Vue, { appOptions }) {
       }
     },
     getters: {
-      cartTotal: ({ cart }) => cart.reduce((total, item) => total.add(Dinero({ amount: item.salePrice }).multiply(item.quantity)), Dinero()),
-      cartTotalItems: ({ cart }) => cart.length
+      cartTotal: ({ cart }) => cart.reduce((total, item) => total.add(Dinero({ amount: item.salePrice }).multiply(item.quantity)), Dinero({ amount: 0 })),
+      cartTotalItems: ({ cart }) => cart.length,
+      isItemInCart: ({ cart }) => id => !!cart.find(item => item.id === id)
     }
   })
 }
