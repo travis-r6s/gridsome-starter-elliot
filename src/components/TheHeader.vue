@@ -2,7 +2,6 @@
   <SfHeader
     cart-icon="empty_cart"
     cart-items-qty="1"
-    is-sticky
     @click:cart="alert('@click:cart')"
     @click:wishlist="alert('@click:wishlist')">
     <template #logo>
