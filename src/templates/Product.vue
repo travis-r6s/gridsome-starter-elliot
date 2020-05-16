@@ -8,7 +8,7 @@
           :image-width="400"
           :image-height="400" />
         <div>
-          <SfBreadcrumbs :breadcrumbs="collections" />
+          <SfBreadcrumbs :breadcrumbs="breadcrumbs" />
           <br>
           <SfHeading
             class="sf-heading--left sf-heading__title--h2"
@@ -85,8 +85,11 @@ export default {
         return { desktop: { url: desktop }, mobile: { url: mobile } }
       })
     },
-    collections () {
-      return this.product.collections.edges.map(({ node }) => ({ text: node.name, link: `/collection/${node.slug}` }))
+    breadcrumbs () {
+      const home = { text: 'Home', link: '/' }
+      const collections = this.product.collections.edges.map(({ node }) => ({ text: node.name, link: `/collection/${node.slug}` }))
+      const product = { text: this.product.name, link: '#' }
+      return [home, ...collections, product]
     },
     relatedProducts () {
       return this.product.relatedProducts.edges.slice(0, 4).map(({ node }) => {
