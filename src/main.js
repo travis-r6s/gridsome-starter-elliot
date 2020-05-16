@@ -17,6 +17,9 @@ import '@/styles/storefront.scss'
 import '@/styles/base.scss'
 
 export default function (Vue, { appOptions }) {
+  Dinero.defaultCurrency = 'GBP'
+  Dinero.globalLocale = 'en-GB'
+
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
 
@@ -67,7 +70,7 @@ export default function (Vue, { appOptions }) {
       }
     },
     getters: {
-      cartTotal: ({ cart }) => cart.reduce((total, item) => total.add(item.total), Dinero({ amount: 0, currency: 'GBP' })).toFormat(),
+      cartTotal: ({ cart }) => cart.reduce((total, item) => total.add(Dinero({ amount: item.total })), Dinero({ amount: 0 })).toFormat(),
       cartTotalItems: ({ cart }) => cart.length,
       isItemInCart: ({ cart }) => id => !!cart.find(item => item.id === id)
     }
