@@ -64,7 +64,7 @@ export default function (Vue, { appOptions }) {
       },
       removeFromCart: ({ state, commit }, id) => {
         const cart = state.cart
-        const updatedCart = cart.filter(item => item.variantId !== id)
+        const updatedCart = cart.filter(item => item.id !== id)
 
         commit('updateCart', updatedCart)
       }
