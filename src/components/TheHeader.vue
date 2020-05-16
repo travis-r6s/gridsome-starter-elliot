@@ -14,12 +14,12 @@
     </template>
     <template #navigation>
       <SfHeaderNavigationItem
-        v-for="item in []"
+        v-for="item in collections"
         :key="item.id">
         <g-link
           class="sf-link"
-          :to="item.connectedObject.uri">
-          {{ item.label }}
+          :to="item.slug">
+          {{ item.name }}
         </g-link>
       </SfHeaderNavigationItem>
     </template>
@@ -36,7 +36,7 @@
     </template>
     <template #search>
       &nbsp;
-      <!-- <SfSearch aria-label="search" /> -->
+    <!-- <SfSearch aria-label="search" /> -->
     </template>
   </SfHeader>
 </template>
@@ -44,13 +44,14 @@
 <script>
 // Components
 import { SfHeader } from '@storefront-ui/vue'
-import SfSearch from '@/components/Storefront/SfSearchBar'
+// import SfSearch from '@/components/Storefront/SfSearchBar'
 
 export default {
   name: 'TheHeader',
-  components: { SfHeader, SfSearch },
+  components: { SfHeader },
   computed: {
     metadata () { return this.$static.metadata },
+    collections () { return this.$static.elliot.node.collections.edges.map(({ node }) => ({ ...node, slug: `/collection/${node.slug}` })) },
     cartTotalItems () { return this.$store.getters.cartTotalItems.toString() }
   },
   methods: {
@@ -65,6 +66,21 @@ export default {
 query {
   metadata {
     siteName
+  }
+  elliot {
+    node (id: "RG9tYWluTm9kZTo0OTY") {
+      ...on Elliot_DomainNode {
+        collections {
+          edges {
+            node {
+              id
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
   }
 }
 </static-query>
