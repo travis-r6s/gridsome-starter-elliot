@@ -1,3 +1,6 @@
 module.exports = {
-  extends: ['travisreynolds-vue']
+  extends: ['travisreynolds-vue'],
+  rules: {
+    'vue/no-v-html': 0
+  }
 }
