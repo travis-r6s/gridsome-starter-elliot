@@ -2,6 +2,7 @@
   <SfHeader
     cart-icon="empty_cart"
     :cart-items-qty="cartTotalItems"
+    account-icon=""
     @click:cart="alert('@click:cart')"
     @click:wishlist="alert('@click:wishlist')">
     <template #logo>
@@ -34,7 +35,8 @@
       </SfHeaderNavigationItem>
     </template>
     <template #search>
-      <SfSearch aria-label="search" />
+      &nbsp;
+      <!-- <SfSearch aria-label="search" /> -->
     </template>
   </SfHeader>
 </template>
