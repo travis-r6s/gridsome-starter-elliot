@@ -69,10 +69,11 @@ import { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, Sf
 export default {
   name: 'Product',
   metaInfo () {
-    const [{ node: { title, description } }] = this.product.productSeo.edges
+    const [{ node } = {}] = this.product.productSeo.edges
+    if (!node) return { title: this.product.name }
     return {
-      title: title,
-      meta: [{ name: 'description', content: description }]
+      title: node.title,
+      meta: [{ name: 'description', content: node.description }]
     }
   },
   components: { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider },
