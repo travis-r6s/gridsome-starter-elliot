@@ -1,5 +1,6 @@
 <template>
   <Layout>
+    <notifications group="product" />
     <div class="container">
       <div class="grid product">
         <SfGallery
@@ -64,10 +65,10 @@
 
 <script>
 // Components
-import { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider, SfNotification } from '@storefront-ui/vue'
+import { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider } from '@storefront-ui/vue'
 export default {
   name: 'Product',
-  components: { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider, SfNotification },
+  components: { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider },
   data: () => ({ selectedOptions: {}, quantity: 1 }),
   computed: {
     product () { return this.$page.elliot.product },
@@ -120,6 +121,12 @@ export default {
       const quantity = this.quantity
 
       this.$store.dispatch('addToCart', { ...variant, quantity })
+      this.$notify({
+        group: 'product',
+        type: 'success',
+        title: 'Added product to cart',
+        text: `Just added ${quantity} x ${this.product.name} to cart`
+      })
     }
   }
 }

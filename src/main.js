@@ -2,6 +2,7 @@
 import DefaultLayout from '~/layouts/Default.vue'
 
 // Plugins
+import Notifications from 'vue-notification/dist/ssr'
 import Vuex from 'vuex'
 
 // Packages
@@ -20,6 +21,7 @@ export default function (Vue, { appOptions }) {
   Vue.component('Layout', DefaultLayout)
 
   // Use Plugins
+  Vue.use(Notifications)
   Vue.use(Vuex)
 
   // Use Filters
