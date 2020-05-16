@@ -1,12 +1,28 @@
 <template>
   <Layout>
-    {{ $page.elliot.product }}
+    <div class="grid">
+      <SfGallery :images="images" />
+    </div>
   </Layout>
 </template>
 
 <script>
+// Components
+import { SfGallery } from '@storefront-ui/vue'
 export default {
-  name: 'Product'
+  name: 'Product',
+  components: { SfGallery },
+  computed: {
+    product () { return this.$page.elliot.product },
+    images () {
+      console.log(this.product.images)
+      return this.product.images.edges.map(({ node }) => {
+        console.log(node)
+        const image = `https://storage.googleapis.com/elliot-images-us/${node.url}`
+        return { desktop: { url: image }, mobile: { url: image } }
+      })
+    }
+  }
 }
 </script>
 
@@ -17,6 +33,7 @@ query Product ($id: ID!) {
       ... on Elliot_ProductNode {
         id
         name
+        slug
         description
         attributes
         collections {
@@ -41,7 +58,7 @@ query Product ($id: ID!) {
           edges {
             node {
               id
-              image
+              url
             }
           }
         }
@@ -53,6 +70,15 @@ query Product ($id: ID!) {
               salePrice
               basePrice
               attributes
+            }
+          }
+        }
+        collections {
+          edges {
+            node {
+              id
+              name
+              slug
             }
           }
         }
