@@ -3,8 +3,5 @@
 
 :root {
   // Generate Color Variants
-  @include generate-color-variants(--d-primary, #ffec06);
-
-  // Define variants
-  @include assign-color-variants(--c-primary, --d-primary);
+  @include generate-color-variants(--e-primary, #ffec06);
 }
