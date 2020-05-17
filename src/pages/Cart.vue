@@ -47,6 +47,26 @@
             </SfButton>
           </SfTableData>
         </SfTableRow>
+        <SfTableRow>
+          <SfTableData>
+            &nbsp;
+          </SfTableData>
+          <SfTableData>
+            &nbsp;
+          </SfTableData>
+          <SfTableData>
+            &nbsp;
+          </SfTableData>
+          <SfTableData>
+            &nbsp;
+          </SfTableData>
+          <SfTableData>
+            &nbsp;
+          </SfTableData>
+          <SfTableData>
+            <strong>Total: {{ cartTotal }}</strong>
+          </SfTableData>
+        </SfTableRow>
       </SfTable>
       <div v-else>
         <h3
@@ -72,6 +92,7 @@
           </template>
         </SfBreadcrumbs>
       </div>
+      </sftable>
     </div>
   </Layout>
 </template>
