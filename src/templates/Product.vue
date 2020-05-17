@@ -56,8 +56,8 @@
           link-tag="g-link"
           :regular-price="rProduct.basePrice | currency"
           :special-price="rProduct.salePrice | currency"
-          :is-on-wishlist="false"
-          @click:wishlist="alert('@click:wishlist')" />
+          :is-on-wishlist="isItemLiked(rProduct.id)"
+          @click:wishlist="updateLiked(rProduct)" />
       </div>
     </div>
   </Layout>
@@ -123,6 +123,7 @@ export default {
     this.setFirstOptions()
   },
   methods: {
+    isItemLiked (id) { return this.$store.getters.isItemLiked(id) },
     setFirstOptions () {
       const [firstVariant] = this.variants
       this.selectedOptions = firstVariant.attributes
@@ -138,6 +139,9 @@ export default {
         title: 'Added product to cart',
         text: `Just added ${quantity} x ${this.product.name} to cart`
       })
+    },
+    updateLiked (product) {
+      this.$store.dispatch('updateLiked', product)
     }
   }
 }

@@ -33,10 +33,12 @@ export default function (Vue, { appOptions }) {
   // Create Vuex store
   appOptions.store = new Vuex.Store({
     state: {
-      cart: []
+      cart: [],
+      liked: []
     },
     mutations: {
-      updateCart: (state, cart) => { state.cart = cart }
+      updateCart: (state, cart) => { state.cart = cart },
+      updateLiked: (state, items) => { state.liked = items }
     },
     actions: {
       addToCart: ({ state, commit }, newItem) => {
@@ -67,12 +69,26 @@ export default function (Vue, { appOptions }) {
         const updatedCart = cart.filter(item => item.id !== id)
 
         commit('updateCart', updatedCart)
+      },
+      updateLiked: ({ state, commit }, newItem) => {
+        const liked = state.liked
+        const itemExists = liked.find(item => item.id === newItem.id)
+
+        if (itemExists) {
+          const updatedLiked = liked.filter(item => item.id !== newItem.id)
+          commit('updateLiked', updatedLiked)
+        } else {
+          const updatedLiked = [...liked, newItem]
+          commit('updateLiked', updatedLiked)
+        }
       }
     },
     getters: {
       cartTotal: ({ cart }) => cart.reduce((total, item) => total.add(Dinero({ amount: item.total })), Dinero({ amount: 0 })).toFormat(),
       cartTotalItems: ({ cart }) => cart.length,
-      isItemInCart: ({ cart }) => id => !!cart.find(item => item.id === id)
+      isItemInCart: ({ cart }) => id => !!cart.find(item => item.id === id),
+      likedItems: ({ liked }) => liked,
+      isItemLiked: ({ liked }) => id => !!liked.find(item => item.id === id)
     }
   })
 }

@@ -92,7 +92,8 @@ export default {
           mobile: 'https://ik.imagekit.io/travis/Stock/clark-street-mercantile-qnKhZJPKFD8-unsplash__1__compressed_26TghN84Gj.jpg',
           desktop: 'https://ik.imagekit.io/travis/Stock/clark-street-mercantile-qnKhZJPKFD8-unsplash__1__compressed_26TghN84Gj.jpg'
         },
-        background: '#ECEFF1'
+        background: '#ECEFF1',
+        style: ''
       },
       {
         title: 'Home Boutiques',

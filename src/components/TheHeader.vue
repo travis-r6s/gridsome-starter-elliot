@@ -4,7 +4,7 @@
     :cart-items-qty="cartTotalItems"
     account-icon=""
     @click:cart="$router.push('/cart')"
-    @click:wishlist="alert('@click:wishlist')">
+    @click:wishlist="$router.push('/liked')">
     <template #logo>
       <g-link to="/">
         <g-image

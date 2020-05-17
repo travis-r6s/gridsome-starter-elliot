@@ -17,11 +17,11 @@
           link-tag="g-link"
           :regular-price="product.basePrice | currency"
           :special-price="product.salePrice | currency"
-          :is-on-wishlist="false"
+          :is-on-wishlist="isItemLiked(product.id)"
           show-add-to-cart-button
           :is-added-to-cart="isItemInCart(product.id)"
           @click:add-to-cart="addProductToCart(product)"
-          @click:wishlist="alert('@click:wishlist')" />
+          @click:wishlist="updateLiked(product)" />
       </div>
     </div>
   </Layout>
@@ -58,6 +58,7 @@ export default {
   },
   methods: {
     isItemInCart (id) { return this.$store.getters.isItemInCart(id) },
+    isItemLiked (id) { return this.$store.getters.isItemLiked(id) },
     addProductToCart (product) {
       this.$store.dispatch('addToCart', { ...product, quantity: 1 })
       this.$notify({
@@ -66,6 +67,9 @@ export default {
         title: 'Added product to cart',
         text: `Just added 1 x ${product.name} to cart`
       })
+    },
+    updateLiked (product) {
+      this.$store.dispatch('updateLiked', product)
     }
   }
 }
