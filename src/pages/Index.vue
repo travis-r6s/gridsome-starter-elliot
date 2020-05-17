@@ -78,7 +78,7 @@ import { SfHero, SfButton, SfBannerGrid, SfBanner, SfCallToAction, SfSection, Sf
 export default {
   name: 'Home',
   metaInfo: {
-    title: 'Hey!'
+    title: 'Hey! Great to see you.'
   },
   components: { SfHero, SfButton, SfBannerGrid, SfBanner, SfCallToAction, SfSection, SfProductCard },
   data: () => ({
