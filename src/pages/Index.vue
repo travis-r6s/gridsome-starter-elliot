@@ -56,7 +56,7 @@
             v-for="product in featuredProducts"
             :key="product.id"
             :image="product.image"
-            :image-width="300"
+            :image-width="200"
             :image-height="400"
             badge-label="Featured"
             :title="product.name"
@@ -64,7 +64,16 @@
             link-tag="g-link"
             :wishlist-icon="false"
             :is-on-wishlist-icon="null"
-            :show-add-to-cart-button="false" />
+            :show-add-to-cart-button="false">
+            <template #image="{ image, title, link, imageHeight, imageWidth }">
+              <g-image
+                :src="image"
+                :width="imageWidth"
+                :height="imageHeight"
+                :alt="title"
+                :title="title" />
+            </template>
+          </SfProductCard>
         </div>
       </SfSection>
     </div>
@@ -153,15 +162,11 @@ export default {
   }),
   computed: {
     featuredProducts () {
-      return this.$page.elliot.node.products.edges.map(({ node }) => {
-        const [{ node: image }] = node.images.edges
+      return this.$page.allProduct.edges.map(({ node }) => {
         return {
           ...node,
           link: `/product/${node.slug}`,
-          image: {
-            mobile: { url: image.mobile },
-            desktop: { url: image.desktop }
-          }
+          image: node.images[ 0 ].image
         }
       })
     }
@@ -171,27 +176,14 @@ export default {
 
 <page-query>
 query Products {
-  elliot {
-    node (id: "RG9tYWluTm9kZTo0OTY") {
-      __typename
-      ...on Elliot_DomainNode {
-        products (last: 4) {
-          edges {
-            node {
-              id
-              name
-              slug
-              images (first: 1) {
-                edges {
-                  node {
-                    id
-                    mobile: url(height: 100, width: 150)
-                    desktop: url(height: 400, width: 300)
-                  }
-                }
-              }
-            }
-          }
+  allProduct {
+    edges {
+      node {
+        id
+        name
+        slug
+        images {
+          image(width: 210, height: 400)
         }
       }
     }

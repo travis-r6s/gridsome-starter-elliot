@@ -1,6 +1,7 @@
 <template>
   <Layout>
     <notifications group="product" />
+    <g-image :src="$page.product.image" />
     <div class="container">
       <div class="grid product">
         <SfGallery
@@ -57,7 +58,16 @@
           :regular-price="rProduct.basePrice | currency"
           :special-price="rProduct.salePrice | currency"
           :is-on-wishlist="isItemLiked(rProduct.id)"
-          @click:wishlist="updateLiked(rProduct)" />
+          @click:wishlist="updateLiked(rProduct)">
+          <template #image="{ image, title, link, imageHeight, imageWidth }">
+            <g-image
+              :src="image"
+              :width="imageWidth"
+              :height="imageHeight"
+              :alt="title"
+              :title="title" />
+          </template>
+        </SfProductCard>
       </div>
     </div>
   </Layout>
@@ -69,46 +79,38 @@ import { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, Sf
 export default {
   name: 'Product',
   metaInfo () {
-    const [{ node } = {}] = this.product.productSeo.edges
-    if (!node) return { title: this.product.name }
+    if (!this.product.productSeo) return { title: this.product.name }
+    const { title, description } = this.product.seo
     return {
-      title: node.title,
-      meta: [{ name: 'description', content: node.description }]
+      title,
+      meta: [{ name: 'description', content: description }]
     }
   },
   components: { SfGallery, SfHeading, SfPrice, SfSelect, SfAddToCart, SfProductCard, SfBreadcrumbs, SfDivider },
   data: () => ({ selectedOptions: {}, quantity: 1 }),
   computed: {
-    product () { return this.$page.elliot.product },
-    images () {
-      return this.product.images.edges.map(({ node }) => {
-        const { mobile, desktop } = node
-        return { desktop: { url: desktop }, mobile: { url: mobile } }
-      })
-    },
+    product () { return this.$page.product },
+    images () { return this.product.images.map(node => ({ desktop: { url: node.image.src }, mobile: { url: node.mobile.src } })) },
     breadcrumbs () {
       const home = { text: 'Home', link: '/' }
-      const collections = this.product.collections.edges.map(({ node }) => ({ text: node.name, link: `/collection/${node.slug}` }))
+      const collections = this.product.collections.map(({ name, slug }) => ({ text: name, link: `/collection/${slug}` }))
       const product = { text: this.product.name, link: '#' }
       return [home, ...collections, product]
     },
     relatedProducts () {
-      return this.product.relatedProducts.edges.slice(0, 4).map(({ node }) => {
-        const [{ node: image }] = node.images.edges
-        const [{ node: { basePrice, salePrice } }] = node.skus.edges
+      console.log(this.product.related)
+      return this.product.related.slice(0, 4).map(product => {
+        const [{ basePrice, salePrice }] = product.skus
         return {
-          ...node,
+          ...product,
           basePrice,
           salePrice: (basePrice > salePrice) && salePrice,
-          image: {
-            mobile: { url: image.mobile },
-            desktop: { url: image.desktop }
-          }
+          image: product.images[ 0 ].image
         }
       })
     },
     variants () {
-      return this.product.variants.edges.map(({ node }) => ({ ...node, salePrice: (node.basePrice > node.salePrice) && node.salePrice }))
+      return this.product.variants.map(variant => ({ ...variant, salePrice: (variant.basePrice > variant.salePrice) && variant.salePrice }))
     },
     currentVariant () {
       const matchedVariant = this.variants.find(variant =>
@@ -149,97 +151,49 @@ export default {
 
 <page-query>
 query Product ($id: ID!) {
-  elliot {
-    product: node (id: $id) {
-      ... on Elliot_ProductNode {
-        id
-        name
-        slug
-        description
-        attributes
-        collections {
-          edges {
-            node {
-              id
-              name
-              slug
-            }
-          }
-        }
-        metadata {
-          edges {
-            node {
-              productCategoryTag1
-              productCategoryTag2
-              productCategoryTag3
-            }
-          }
-        }
-        images(orderBy: "orderingPosition", first: 3) {
-          edges {
-            node {
-              id
-              mobile: url(height: 200, width: 200)
-              desktop: url(height: 400, width: 400)
-            }
-          }
-        }
-        variants: skus {
-          edges {
-            node {
-              id
-              sku
-              salePrice
-              basePrice
-              attributes
-            }
-          }
-        }
-        collections {
-          edges {
-            node {
-              id
-              name
-              slug
-            }
-          }
-        }
-        relatedProducts {
-          edges {
-            node {
-              id
-              name
-              slug
-              images (first: 1) {
-                edges {
-                  node {
-                    id
-                    mobile: url(height: 100, width: 100)
-                    desktop: url(height: 200, width: 200)
-                  }
-                }
-              }
-              skus (first: 1) {
-                edges {
-                  node {
-                    id
-                    basePrice
-                    salePrice
-                  }
-                }
-              }
-            }
-          }
-        }
-        productSeo {
-          edges {
-            node {
-              title
-              description
-            }
-          }
-        }
+  product (id: $id) {
+    id
+    name
+    slug
+    description
+    attributes
+    metadata {
+      productCategoryTag1
+      productCategoryTag2
+      productCategoryTag3
+    }
+    images {
+      image(width: 400, height: 400)
+      mobile: image(width: 160, height: 160)
+    }
+    variants: skus {
+      id
+      sku
+      salePrice
+      basePrice
+      attributes
+    }
+    collections {
+      id
+      name
+      slug
+    }
+    related {
+      id
+      name
+      slug
+      images {
+        image(width: 210, height: 300)
       }
+      skus {
+        id
+        basePrice
+        salePrice
+      }
+    }
+    seo {
+      title
+      description
     }
   }
 }

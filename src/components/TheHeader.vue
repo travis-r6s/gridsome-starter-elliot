@@ -51,7 +51,7 @@ export default {
   components: { SfHeader },
   computed: {
     metadata () { return this.$static.metadata },
-    collections () { return this.$static.elliot.node.collections.edges.map(({ node }) => ({ ...node, slug: `/collection/${node.slug}` })) },
+    collections () { return this.$static.allCollection.edges.map(({ node }) => ({ ...node, slug: `/collection/${node.slug}` })) },
     cartTotalItems () { return this.$store.getters.cartTotalItems.toString() }
   },
   methods: {
@@ -67,18 +67,12 @@ query {
   metadata {
     siteName
   }
-  elliot {
-    node (id: "RG9tYWluTm9kZTo0OTY") {
-      ...on Elliot_DomainNode {
-        collections {
-          edges {
-            node {
-              id
-              name
-              slug
-            }
-          }
-        }
+  allCollection {
+    edges {
+      node {
+        id
+        name
+        slug
       }
     }
   }

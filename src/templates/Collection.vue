@@ -10,8 +10,8 @@
           v-for="product in products"
           :key="product.id"
           :image="product.image"
-          :image-width="300"
-          :image-height="400"
+          :image-width="210"
+          :image-height="300"
           :title="product.name"
           :link="product.slug"
           link-tag="g-link"
@@ -21,7 +21,16 @@
           show-add-to-cart-button
           :is-added-to-cart="isItemInCart(product.id)"
           @click:add-to-cart="addProductToCart(product)"
-          @click:wishlist="updateLiked(product)" />
+          @click:wishlist="updateLiked(product)">
+          <template #image="{ image, title, link, imageHeight, imageWidth }">
+            <g-image
+              :src="image"
+              :width="imageWidth"
+              :height="imageHeight"
+              :alt="title"
+              :title="title" />
+          </template>
+        </SfProductCard>
       </div>
     </div>
   </Layout>
@@ -38,20 +47,16 @@ export default {
   },
   components: { SfSection, SfProductCard },
   computed: {
-    collection () { return this.$page.elliot.collection },
+    collection () { return this.$page.collection },
     products () {
-      return this.collection.products.edges.map(({ node }) => {
-        const [{ node: image }] = node.images.edges
-        const [{ node: { basePrice, salePrice } }] = node.skus.edges
+      return this.collection.products.map(product => {
+        const [{ basePrice, salePrice }] = product.skus
         return {
-          ...node,
-          slug: `/product/${node.slug}`,
+          ...product,
+          slug: `/product/${product.slug}`,
           basePrice,
           salePrice: (basePrice > salePrice) && salePrice,
-          image: {
-            mobile: { url: image.mobile },
-            desktop: { url: image.desktop }
-          }
+          image: product.images[ 0 ].image
         }
       })
     }
@@ -77,37 +82,20 @@ export default {
 
 <page-query>
 query Collection ($id: ID!) {
-  elliot {
-    collection: node(id: $id) {
-      ... on Elliot_CollectionNode {
-        id
-        name
-        products {
-          edges {
-            node {
-              id
-              name
-              slug
-              description
-              images(orderBy: "orderingPosition", first: 1) {
-                edges {
-                  node {
-                    mobile: url(height: 200, width: 100)
-                    desktop: url(height: 400, width: 300)
-                  }
-                }
-              }
-              skus (first: 1) {
-                edges {
-                  node {
-                    salePrice
-                    basePrice
-                  }
-                }
-              }
-            }
-          }
-        }
+  collection (id: $id) {
+    id
+    name
+    products {
+      id
+      name
+      slug
+      description
+      images {
+        image(width: 210, height: 300)
+      }
+      skus {
+        salePrice
+        basePrice
       }
     }
   }

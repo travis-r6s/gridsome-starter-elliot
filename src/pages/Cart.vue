@@ -138,18 +138,12 @@ export default {
 
 <page-query>
 query {
-  elliot {
-    node (id: "RG9tYWluTm9kZTo0OTY") {
-      ...on Elliot_DomainNode {
-        collections {
-          edges {
-            node {
-              id
-              name
-              slug
-            }
-          }
-        }
+  allCollection {
+    edges {
+      node {
+        id
+        name
+        slug
       }
     }
   }

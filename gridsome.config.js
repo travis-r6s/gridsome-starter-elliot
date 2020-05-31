@@ -2,22 +2,10 @@ module.exports = {
   siteName: 'Gridsome + Elliot 😍',
   plugins: [
     {
-      use: 'gridsome-plugin-image-cdn',
+      use: 'gridsome-source-elliot',
       options: {
-        site: {
-          baseUrl: ''
-        },
-        cdn: {
-          baseUrl: 'https://ik.imagekit.io/travis/elliot',
-          preset: 'imageKit',
-          imagePrefix: '/'
-        },
-        types: [
-          {
-            typeName: 'Elliot_ProductImageNode',
-            sourceField: 'url'
-          }
-        ]
+        keys: process.env.ELLIOT_ENV,
+        logs: true
       }
     }
   ]
