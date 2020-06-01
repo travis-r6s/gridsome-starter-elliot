@@ -56,22 +56,24 @@
             v-for="product in featuredProducts"
             :key="product.id"
             :image="product.image"
-            :image-width="200"
-            :image-height="400"
-            badge-label="Featured"
+            :image-width="250"
+            :image-height="300"
             :title="product.name"
             :link="product.link"
-            link-tag="g-link"
             :wishlist-icon="false"
             :is-on-wishlist-icon="null"
-            :show-add-to-cart-button="false">
-            <template #image="{ image, title, link, imageHeight, imageWidth }">
-              <g-image
-                :src="image"
-                :width="imageWidth"
-                :height="imageHeight"
-                :alt="title"
-                :title="title" />
+            :show-add-to-cart-button="false"
+            link-tag="g-link"
+            badge-label="Featured"
+            class="c-sf-product-card">
+            <template #image="{ image, title, link }">
+              <g-link :to="link">
+                <g-image
+                  style="width: 100%;"
+                  :src="image"
+                  :alt="title"
+                  :title="title" />
+              </g-link>
             </template>
           </SfProductCard>
         </div>
@@ -183,7 +185,7 @@ query Products {
         name
         slug
         images {
-          image(width: 210, height: 400)
+          image(width: 250, height: 300)
         }
       }
     }
@@ -191,3 +193,9 @@ query Products {
 }
 
 </page-query>
+
+<style lang="scss">
+.c-sf-product-card {
+  --product-card-max-width: 100%;
+}
+</style>
