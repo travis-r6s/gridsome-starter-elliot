@@ -6,9 +6,6 @@ import Notifications from 'vue-notification/dist/ssr'
 import store from '@/store'
 import Vuex from 'vuex'
 
-// Packages
-import Dinero from 'dinero.js'
-
 // Filters
 import { formatCurrency } from './filters'
 
@@ -17,11 +14,7 @@ import '@storefront-ui/vue/styles.scss'
 import '@/styles/storefront.scss'
 import '@/styles/base.scss'
 
-export default function ( Vue, { appOptions } ) {
-  // Set Dinero defaults
-  Dinero.defaultCurrency = 'GBP'
-  Dinero.globalLocale = 'en-GB'
-
+export default function (Vue, { appOptions }) {
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
 
@@ -37,5 +30,5 @@ export default function ( Vue, { appOptions } ) {
   Vue.prototype.$bus = bus
 
   // Add Vuex store
-  appOptions.store = store
+  appOptions.store = store()
 }
