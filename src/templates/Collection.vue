@@ -10,25 +10,27 @@
           v-for="product in products"
           :key="product.id"
           :image="product.image"
-          :image-width="210"
+          :image-width="250"
           :image-height="300"
           :title="product.name"
           :link="product.slug"
-          link-tag="g-link"
           :regular-price="product.basePrice | currency"
           :special-price="product.salePrice | currency"
           :is-on-wishlist="isItemLiked(product.id)"
-          show-add-to-cart-button
           :is-added-to-cart="isItemInCart(product.id)"
+          class="c-sf-product-card"
+          link-tag="g-link"
+          show-add-to-cart-button
           @click:add-to-cart="addProductToCart(product)"
           @click:wishlist="updateLiked(product)">
-          <template #image="{ image, title, link, imageHeight, imageWidth }">
-            <g-image
-              :src="image"
-              :width="imageWidth"
-              :height="imageHeight"
-              :alt="title"
-              :title="title" />
+          <template #image="{ image, title, link }">
+            <g-link :to="link">
+              <g-image
+                :src="image"
+                :alt="title"
+                :title="title"
+                style="width: 100%;" />
+            </g-link>
           </template>
         </SfProductCard>
       </div>
@@ -91,7 +93,7 @@ query Collection ($id: ID!) {
       slug
       description
       images {
-        image(width: 210, height: 300)
+        image(width: 250, height: 300)
       }
       skus {
         salePrice
@@ -101,3 +103,9 @@ query Collection ($id: ID!) {
   }
 }
 </page-query>
+
+<style lang="scss">
+.c-sf-product-card {
+  --product-card-max-width: 100%;
+}
+</style>
