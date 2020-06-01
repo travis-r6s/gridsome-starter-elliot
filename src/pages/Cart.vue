@@ -19,14 +19,6 @@
             v-for="(item, key) in cartItems"
             :key="key">
             <SfTableData>
-              <SfImage
-                :src="item.image"
-                :alt="item.name"
-                :width="80"
-                :height="80"
-                lazy />
-            </SfTableData>
-            <SfTableData>
               {{ item.name }}
             </SfTableData>
             <SfTableData>
@@ -51,9 +43,6 @@
             </SfTableData>
           </SfTableRow>
           <SfTableRow>
-            <SfTableData>
-            &nbsp;
-            </SfTableData>
             <SfTableData>
             &nbsp;
             </SfTableData>
@@ -126,7 +115,6 @@ export default {
   components: { SfSection, SfTable, SfButton, SfImage, SfQuantitySelector, SfBreadcrumbs },
   data: () => ({
     tableHeaders: [
-      '',
       'Product',
       'Quantity',
       'Amount',
