@@ -1,6 +1,7 @@
 <template>
   <div class="layout">
     <TheHeader />
+    <TheSidebar />
     <slot />
     <TheFooter />
   </div>
@@ -9,10 +10,11 @@
 <script>
 // Components
 import TheHeader from '@/components/TheHeader'
+import TheSidebar from '@/components/TheSidebar'
 import TheFooter from '@/components/TheFooter'
 
 export default {
   name: 'MainLayout',
-  components: { TheHeader, TheFooter }
+  components: { TheHeader, TheSidebar, TheFooter }
 }
 </script>
