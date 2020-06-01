@@ -5,7 +5,7 @@
       :title-heading="collection.name"
       :level-heading="1" />
     <div class="container">
-      <div class="grid">
+      <div class="grid fill">
         <SfProductCard
           v-for="product in products"
           :key="product.id"
