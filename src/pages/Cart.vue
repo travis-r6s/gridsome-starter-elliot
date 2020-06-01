@@ -123,7 +123,7 @@ export default {
     cartTotalItems () { return this.$store.getters.cartTotalItems },
     cartTotal () { return this.$store.getters.cartTotal },
     cartItems () { return this.$store.state.cart },
-    collections () { return this.$page.elliot.node.collections.edges.map(({ node }) => ({ text: node.name, link: `/collection/${node.slug}` })) }
+    collections () { return this.$page.allCollection.edges.map(({ node }) => ({ text: node.name, link: `/collection/${node.slug}` })) }
   },
   methods: {
     updateItemQuantity (quantity) {
