@@ -4,70 +4,86 @@
       title-heading="Your Cart"
       :level-heading="1" />
     <div class="container">
-      <SfTable v-if="cartTotalItems">
-        <SfTableHeading>
-          <SfTableHeader
-            v-for="(header, i) in tableHeaders"
-            :key="i">
-            {{ header }}
-          </SfTableHeader>
-        </SfTableHeading>
-        <SfTableRow
-          v-for="(item, key) in cartItems"
-          :key="key">
-          <SfTableData>
-            <SfImage
-              :src="item.image"
-              :alt="item.name"
-              :width="80"
-              :height="80"
-              lazy />
-          </SfTableData>
-          <SfTableData>
-            {{ item.name }}
-          </SfTableData>
-          <SfTableData>
-            <SfQuantitySelector
-              :qty="item.quantity"
-              aria-label="Quantity"
-              @input="updateItemQuantity({ id: item.id, quantity: $event })" />
-          </SfTableData>
-          <SfTableData>
-            {{ item.salePrice || item.basePrice | currency }}
-          </SfTableData>
-          <SfTableData>
-            {{ item.total | currency }}
-          </SfTableData>
-          <SfTableData>
-            <SfButton
-              class="sf-button--text"
-              @click="removeFromCart(item.id)"
-              @keyup="removeFromCart(item.id)">
-              Remove Item
+      <div
+        v-if="cartTotalItems"
+        class="cart">
+        <SfTable>
+          <SfTableHeading>
+            <SfTableHeader
+              v-for="(header, i) in tableHeaders"
+              :key="i">
+              {{ header }}
+            </SfTableHeader>
+          </SfTableHeading>
+          <SfTableRow
+            v-for="(item, key) in cartItems"
+            :key="key">
+            <SfTableData>
+              <SfImage
+                :src="item.image"
+                :alt="item.name"
+                :width="80"
+                :height="80"
+                lazy />
+            </SfTableData>
+            <SfTableData>
+              {{ item.name }}
+            </SfTableData>
+            <SfTableData>
+              <SfQuantitySelector
+                :qty="item.quantity"
+                aria-label="Quantity"
+                @input="updateItemQuantity({ id: item.id, quantity: $event })" />
+            </SfTableData>
+            <SfTableData>
+              {{ item.salePrice || item.basePrice | currency }}
+            </SfTableData>
+            <SfTableData>
+              {{ item.total | currency }}
+            </SfTableData>
+            <SfTableData>
+              <SfButton
+                class="sf-button--text"
+                @click="removeFromCart(item.id)"
+                @keyup="removeFromCart(item.id)">
+                Remove Item
+              </SfButton>
+            </SfTableData>
+          </SfTableRow>
+          <SfTableRow>
+            <SfTableData>
+            &nbsp;
+            </SfTableData>
+            <SfTableData>
+            &nbsp;
+            </SfTableData>
+            <SfTableData>
+            &nbsp;
+            </SfTableData>
+            <SfTableData>
+            &nbsp;
+            </SfTableData>
+            <SfTableData>
+            &nbsp;
+            </SfTableData>
+            <SfTableData>
+              <strong>Total: {{ cartTotal }}</strong>
+            </SfTableData>
+          </SfTableRow>
+        </SfTable>
+        <br>
+        <div
+          class="container"
+          style="display: flex;">
+          <g-link
+            style="margin-left: auto;"
+            to="/checkout">
+            <SfButton>
+              Checkout
             </SfButton>
-          </SfTableData>
-        </SfTableRow>
-        <SfTableRow>
-          <SfTableData>
-            &nbsp;
-          </SfTableData>
-          <SfTableData>
-            &nbsp;
-          </SfTableData>
-          <SfTableData>
-            &nbsp;
-          </SfTableData>
-          <SfTableData>
-            &nbsp;
-          </SfTableData>
-          <SfTableData>
-            &nbsp;
-          </SfTableData>
-          <SfTableData>
-            <strong>Total: {{ cartTotal }}</strong>
-          </SfTableData>
-        </SfTableRow>
-      </SfTable>
+          </g-link>
+        </div>
+      </div>
       <div v-else>
         <h3
           class="sf-heading"
@@ -92,7 +108,6 @@
           </template>
         </SfBreadcrumbs>
       </div>
-      </sftable>
     </div>
   </Layout>
 </template>
