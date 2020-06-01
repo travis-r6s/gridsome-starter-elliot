@@ -4,7 +4,7 @@ A headless Ecommerce starter for Gridsome, using [Elliot](https://elliot.store).
 
 This uses the Elliot source plugin ([`gridsome-source-elliot`](https://https://gridsome.org/plugins/gridsome-source-elliot)) to fetch data from Elliot, and download images for use with `g-image`.
 
-Elliot provides checkout & order API's to allow you a completely customised checkout experience, and this starter makes use of those. [See it in action](https://gridsome.org/plugins/gridsome-source-elliot)!
+Elliot provides checkout & order API's to allow you a completely customised checkout experience, and this starter makes use of those. [See it in action](https://gridsome-starter-elliot.now.sh)!
 
 ## Elliot Setup
 
@@ -15,7 +15,7 @@ You will need your Elliot keys to get started - follow the steps below to do so:
 3. Click on 'Get Headless' under the Developers section
 4. Choose an Experience, and click 'Copy Variables to Continue'
 
-It is recommended to add these to a .env file at the root of your project, as these are secret keys, and should NOT be exposed or included in a git repository etc.
+It is recommended to add these to a `.env` file at the root of your project, as these are secret keys, and should NOT be exposed or included in a git repository etc.
 
 ## Installation
 
